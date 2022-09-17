@@ -61,6 +61,7 @@
   display: grid;
   margin: 70px 70px 110px 70px;
   grid-template-columns: 1fr 3fr;
+  align-items: center;
   /* grid-template-rows: repeat(auto-fit, 36px); */
 }
 
@@ -70,22 +71,18 @@
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
-  line-height: 17px;
+  line-height: 36px;
   text-align: center;
   color: #ffffff;
 }
 
 .about-project__block:first-of-type {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
   color: #000000;
   background-color: #3ddc84;
 }
 
-.about-project__block:nth-of-type(2n) {
-  /* max-width: 912px; */
+.about-project__block:nth-of-type(2) {
+  background-color: #303030;
 }
 
 .about-project__block_witout-borders {
