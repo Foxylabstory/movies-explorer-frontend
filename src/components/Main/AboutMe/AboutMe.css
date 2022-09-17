@@ -1,0 +1,135 @@
+.about-me {
+  background-color: #202020;
+  margin: 0;
+}
+
+.about-me__container {
+  max-width: 1280px;
+  min-height: 1079px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.about-me__header_main {
+  max-width: 100%;
+  min-height: 27px;
+  margin: 110px 70px 0 70px;
+  padding: 0 0 23px 0;
+  border-bottom: 1px solid #dadada;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+}
+
+.about-me__summary {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 66px 70px 0 70px;
+}
+
+.about-me__header {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 116%;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  margin: 0;
+}
+
+.about-me__about {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 111%;
+  color: #ffffff;
+  mix-blend-mode: normal;
+  margin: 18px 0 0 0;
+}
+
+.about-me__description {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 157%;
+  color: #ffffff;
+  mix-blend-mode: normal;
+  max-width: 600px;
+  margin: 26px 0 0 0;
+}
+
+.about-me__link {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+  color: #ffffff;
+  margin: 99px 0 0 0;
+  text-decoration: none;
+  transition: opacity 0.4s ease;
+  position: absolute;
+}
+
+.about-me__link:hover {
+  opacity: 0.7;
+}
+
+.about-me__photo {
+  border-radius: 10px;
+  background-position: center;
+}
+
+.about-me__portfolio {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 111%;
+  color: #8b8b8b;
+  margin: 100px 70px 0 70px;
+}
+
+.about-me__list {
+  margin: 50px 70px 0 70px;
+  padding: 0;
+}
+
+.about-me__list-item {
+  list-style: none;
+  border-bottom: 1px solid #424242;
+}
+
+.about-me__list-item:last-of-type {
+    border-bottom: none;
+  }
+
+.about-me__portfolio-link {
+  display: flex;
+  justify-content: space-between;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 50px;
+  /* identical to box height, or 167% */
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  padding-top: 10px;
+  padding-bottom: 9px;
+}
+
+.about-me__link-text {
+    margin: 0;
+}
+
+.about-me__link-arrow {
+    margin: 0;
+    line-height: 60px;
+}
