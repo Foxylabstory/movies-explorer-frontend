@@ -16,28 +16,6 @@ function AboutMe(props) {
                     </div>
                     <img className="about-me__photo" alt="Фото студента" src={photoPath} />
                 </div>
-
-                <h4 className='about-me__portfolio'>Портфолио</h4>
-                <ul className='about-me__list'>
-                    <li className='about-me__list-item'>
-                        <a className='about-me__portfolio-link' href="https://foxylabstory.github.io/how-to-learn/" target="_blank" rel="noopener noreferrer" title='Ссылка ведущая на статичный сайт'>
-                            <p className='about-me__link-text'>Статичный сайт</p>
-                            <p className='about-me__link-arrow'>↗</p>
-                        </a>
-                    </li>
-                    <li className='about-me__list-item'>
-                        <a className='about-me__portfolio-link' href="https://foxylabstory.github.io/russian-travel/" target="_blank" rel="noopener noreferrer" title='Ссылка ведущая на адаптивный сайт'>
-                            <p className='about-me__link-text'>Адаптивный сайт</p>
-                            <p className='about-me__link-arrow'>↗</p>
-                        </a>
-                    </li>
-                    <li className='about-me__list-item'>
-                        <a className='about-me__portfolio-link' href="https://foxylab.nomoredomains.sbs/" target="_blank" rel="noopener noreferrer" title='Ссылка ведущая на одностраничное приложение'>
-                            <p className='about-me__link-text'>Одностраничное приложение</p>
-                            <p className='about-me__link-arrow'>↗</p>
-                        </a>
-                    </li>
-                </ul>
             </div>
         </section>
     )

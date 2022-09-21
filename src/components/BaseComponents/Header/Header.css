@@ -49,6 +49,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  margin-right: 70px;
 }
 
 .header__button-main {
