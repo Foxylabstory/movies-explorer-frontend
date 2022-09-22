@@ -11,10 +11,10 @@ import Portfolio from "./Portfolio/Portfolio";
 
 function Main(props) {
   return (
-    <div className="Main">
+    <div className="main">
       <Header>
         <Link className="header__link" to={"/signup"}>Регистрация</Link>
-        <button className="header__button-main">Войти</button>
+        <Link className="header__button header__button_unlogged" to={"/signin"}>Войти</Link>
       </Header>
       <Promo />
       <NavTab />
