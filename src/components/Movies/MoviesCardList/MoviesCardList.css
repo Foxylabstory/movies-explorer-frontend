@@ -1,0 +1,18 @@
+.movies-card-list {
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.movies-card-list__container {
+  padding: 70px 70px 30px 70px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  row-gap: 30px;
+  column-gap: 24px;
+}
+.card {
+    width: 364px;
+    height: 371px;
+    background-color: #fff;
+  }

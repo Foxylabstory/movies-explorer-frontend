@@ -2,9 +2,10 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import Header from "../BaseComponents/Header/Header";
 import './Movies.css';
+import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import SearchForm from "./SearchForm/SearchForm";
 
-function Movies(props) {
+function Movies(params) {
   return (
     <div className="movies">
       <Header>
@@ -13,6 +14,8 @@ function Movies(props) {
         <Link className="header__button header__button_logged" to={"/profile"}>Аккаунт</Link>
       </Header>
       <SearchForm />
+      <MoviesCardList
+        movies={params.movies} />
     </div>
   )
 }

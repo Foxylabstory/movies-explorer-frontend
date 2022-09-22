@@ -5,6 +5,7 @@ import ProtectedRoute from "./BaseComponents/ProtectedRoute";
 
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
+import moviesArray from '../utils/MoviesArray';
 
 import Main from './Main/Main';
 import Movies from './Movies/Movies';
@@ -23,6 +24,11 @@ function App() {
     _id: " ",
   });
 
+  
+
+  const [movies, setMovies] = useState(moviesArray);
+console.log(moviesArray);
+console.log(movies);
   return (
     <div className="App">
       <CurrentUserContext.Provider value={currentUser}>
@@ -31,7 +37,8 @@ function App() {
           <Route path='/signin' element={<Signin />} />
           <Route path='/' element={<Main />} />
           <Route path="/" element={<ProtectedRoute loggedIn={currentUser.loggedIn} />}>
-            <Route path='/movies' element={<Movies />} />
+            <Route path='/movies' element={<Movies
+              movies={movies} />} />
             <Route path='/saved-movies' element={<SavedMovies />} />
             <Route path='/profile' element={<Profile />} />
           </Route>
