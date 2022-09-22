@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import FilterCheckbox from './FilterCheckbox/FilterCheckbox';
 import './SearchForm.css';
 
 function SearchForm(props) {
@@ -36,17 +37,9 @@ function SearchForm(props) {
                         required></input>
                     <button className='search-form__button' type={'submit'}></button>
                     <div className='search-form__shorts'>
-                        <label className='search-form__label-for-checkbox'>
-                            <input
-                                className='search-form__checkbox'
-                                name='checkbox'
-                                value={searchFormState.checkbox}
-                                onChange={handleCheckboxChange}
-                                type={'checkbox'}></input>
-                            <span className='search-form__checkbox-span search-form__checkbox-span-visible'></span>
-                            <span className='search-form__checkbox-text'>Короткометражки</span>
-                        </label>
-
+                        <FilterCheckbox
+                        value={searchFormState.checkbox}
+                        onChange={handleCheckboxChange} />
                     </div>
                 </form>
             </div>
