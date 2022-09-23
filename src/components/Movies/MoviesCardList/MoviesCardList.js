@@ -21,7 +21,8 @@ function MoviesCardList({movies}) {
                         duration={movie.duration}
                         isSaved={false}
                         thumbnail={baseUrl+movie.image.formats.thumbnail.url}
-                        movieId={movie.id} 
+                        movieId={movie.id}
+                        key={movie.id}
 
                         /* src={card.link}
                         name={card.name}

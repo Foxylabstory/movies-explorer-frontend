@@ -1,0 +1,22 @@
+.more {
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.more__container {
+  padding: 50px 70px 80px 70px;
+}
+
+.more__button {
+  width: 100%;
+  height: 36px;
+  background: #2f2f2f;
+  border-radius: 6px;
+  border: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: #ffffff;
+}
