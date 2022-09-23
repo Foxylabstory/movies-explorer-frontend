@@ -55,6 +55,14 @@
     background-image: url('../../../images/MoviesCard/unsaved.svg');
 }
 
+.movies-card__mark_own {
+  background-image: url('../../../images/MoviesCard/own.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #313131;
+  border-radius: 36px;
+}
+
 .movies-card__img {
     width: 364px;
     height: 203px;

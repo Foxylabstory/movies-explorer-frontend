@@ -1,7 +1,7 @@
 import React from "react";
+import './Movies.css';
 import { Link } from 'react-router-dom';
 import Header from "../BaseComponents/Header/Header";
-import './Movies.css';
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import Preloader from "./Preloader/Preloader";
 import SearchForm from "./SearchForm/SearchForm";
