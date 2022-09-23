@@ -1,12 +1,25 @@
 import './MoviesCard.css';
 
 function MoviesCard({ title, duration, isSaved, thumbnail }) {
+    const formattedDuration = (duration) => {
+        if (duration > 60) {
+            const min = duration % 60;
+            const hour = (duration - min) / 60;
+            const result = (`${hour}ч ${min}м`);
+            return result;
+        } else {
+            const result = `${duration}м`;
+            return result;
+        }
+    }
     return (
         <div className='movies-card'>
-            <h3>{title}</h3>
-            <p>{duration}</p>
-            <div className={isSaved ? 'movies-card__saved' : 'movies-card__unsaved' }></div>
-            <img src={thumbnail} alt={title} ></img>
+            <div className='movies-card__tittle-container'>
+                <h3 className='movies-card__tittle'>{title}</h3>
+                <p className='movies-card__duration'>{formattedDuration(duration)}</p>
+            </div>
+            <div className={'movies-card__mark ' + (isSaved ? 'movies-card__mark_saved' : 'movies-card__mark_unsaved')}></div>
+            <img className='movies-card__img' src={thumbnail} alt={title}></img>
         </div>
     )
 }

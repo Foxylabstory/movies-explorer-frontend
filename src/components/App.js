@@ -27,8 +27,7 @@ function App() {
   
 
   const [movies, setMovies] = useState(moviesArray);
-console.log(moviesArray);
-console.log(movies);
+
   return (
     <div className="App">
       <CurrentUserContext.Provider value={currentUser}>

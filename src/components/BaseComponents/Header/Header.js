@@ -6,7 +6,7 @@ import logoPath from "../../../images/header/logo__COLOR_main-1.svg";
 function Header(props) {
   return (
     <div className="header">
-      <div className="ol header__container">
+      <div className="header__container">
         <Link className='header__logo-link' to="/" >
           <img className="header__logo" alt="Логотип сайта" src={logoPath} />
         </Link>

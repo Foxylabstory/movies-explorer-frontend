@@ -10,9 +10,5 @@
   flex-wrap: wrap;
   row-gap: 30px;
   column-gap: 24px;
+  justify-content: center;
 }
-.card {
-    width: 364px;
-    height: 371px;
-    background-color: #fff;
-  }

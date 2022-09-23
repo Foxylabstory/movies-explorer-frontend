@@ -7,12 +7,12 @@ function MoviesCardList({movies}) {
             <div className='movies-card-list__container'>
                 <MoviesCard
                     title={'33 слова о дизайне'}
-                    duration={61}
+                    duration={60}
                     isSaved={false}
                     thumbnail={'https://api.nomoreparties.co/uploads/thumbnail_stones_in_exile_b2f1b8f4b7.jpeg'} />
                 <MoviesCard
                     title={'42 слова о дизайне'}
-                    duration={61}
+                    duration={120}
                     isSaved={true}
                     thumbnail={'https://api.nomoreparties.co/uploads/thumbnail_stones_in_exile_b2f1b8f4b7.jpeg'} />
                 {movies.map((movie) => (
