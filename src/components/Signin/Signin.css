@@ -1,0 +1,14 @@
+.signin {
+    background: #202020;
+    min-height: 100vh;
+  }
+  
+  .signin__container {
+      max-width: 396px;
+      min-height: 100vh;
+      margin: 0 auto 0 auto;
+      padding-top: 70px;
+      padding-bottom: 70px;
+      display: flex;
+      flex-direction: column;
+  }

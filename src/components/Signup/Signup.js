@@ -8,12 +8,10 @@ function Signup(params) {
   return (
     <section className="signup">
       <form className="signup__container">
-        
-          <Greetings text={'Добро пожаловать!'} />
-          <SignInput header={'Имя'} type={'text'} />
-          <SignInput header={'E-mail'} type={'email'} />
-          <SignInput header={'Пароль'} type={'password'} />
-        
+        <Greetings text={'Добро пожаловать!'} />
+        <SignInput header={'Имя'} type={'text'} />
+        <SignInput header={'E-mail'} type={'email'} />
+        <SignInput header={'Пароль'} type={'password'} />
         <SignButton
           buttonText={'Зарегистрироваться'}
           message={'Уже зарегистрированы?'}
