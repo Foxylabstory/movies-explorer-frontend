@@ -6,6 +6,7 @@ import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 import Preloader from "../Movies/Preloader/Preloader";
 import SearchForm from "../Movies/SearchForm/SearchForm";
 import Devider from "./Devider/Devider";
+import Footer from "../BaseComponents/Footer/Footer";
 
 function SavedMovies({ movies, owner }) {
   return (
@@ -19,6 +20,7 @@ function SavedMovies({ movies, owner }) {
       <Preloader />
       <MoviesCardList movies={movies} owner={owner} />
       <Devider />
+      <Footer />
     </div>
   )
 }

@@ -6,6 +6,7 @@ import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import Preloader from "./Preloader/Preloader";
 import SearchForm from "./SearchForm/SearchForm";
 import More from "./More/More";
+import Footer from "../BaseComponents/Footer/Footer";
 
 function Movies(params) {
   return (
@@ -20,6 +21,7 @@ function Movies(params) {
       <MoviesCardList
         movies={params.movies} />
       <More />
+      <Footer />
     </div>
   )
 }

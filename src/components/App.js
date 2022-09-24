@@ -14,7 +14,6 @@ import SavedMovies from './SavedMovies/SavedMovies';
 import Profile from './Profile/Profile';
 import Signup from './Signup/Signup';
 import Signin from './Signin/Signin';
-import Footer from './BaseComponents/Footer/Footer';
 
 function App() {
   const navigate = useNavigate();
@@ -22,6 +21,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({
     loggedIn: true,
     name: "Name",
+    email: 'example@domain.net',
     _id: 1,
   });
 
@@ -47,7 +47,7 @@ function App() {
             <Route path='/profile' element={<Profile />} />
           </Route>
         </Routes>
-        <Footer />
+        
       </CurrentUserContext.Provider>
 
     </div>

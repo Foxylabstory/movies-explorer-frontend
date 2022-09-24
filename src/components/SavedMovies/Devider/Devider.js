@@ -2,7 +2,7 @@ import './Devider.css';
 
 function Devider(params) {
     return (
-        <section className='ol devider'>
+        <section className='devider'>
         </section>
     )
 }
