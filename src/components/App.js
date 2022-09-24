@@ -14,6 +14,7 @@ import SavedMovies from './SavedMovies/SavedMovies';
 import Profile from './Profile/Profile';
 import Signup from './Signup/Signup';
 import Signin from './Signin/Signin';
+import PageNotFound from './PageNotFound/PageNotFound';
 
 function App() {
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ function App() {
             />} />
             <Route path='/profile' element={<Profile />} />
           </Route>
+          <Route path='/*' element={<PageNotFound />} />
         </Routes>
         
       </CurrentUserContext.Provider>
