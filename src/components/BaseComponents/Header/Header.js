@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import './Header.css';
 import logoPath from "../../../images/header/logo__COLOR_main-1.svg";
 
