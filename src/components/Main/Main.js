@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from 'react-router-dom';
 import './Main.css';
 import Header from '../BaseComponents/Header/Header';
 import NavTab from '../Main/NavTab/NavTab';
@@ -13,10 +12,7 @@ import Footer from "../BaseComponents/Footer/Footer";
 function Main(props) {
   return (
     <div className="main">
-      <Header>
-        <Link className="header__link" to={"/signup"}>Регистрация</Link>
-        <Link className="header__button header__button_unlogged" to={"/signin"}>Войти</Link>
-      </Header>
+      <Header />
       <Promo />
       <NavTab />
       <AboutProject />

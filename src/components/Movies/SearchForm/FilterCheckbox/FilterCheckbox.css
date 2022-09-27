@@ -14,7 +14,7 @@
 .search-form__checkbox-span {
   display: inline-block; /* элемент span теперь сможет принимать определённую ширину и высоту */
   /* vertical-align: middle; */
-  background-image: url('../../../../images/searchForm/smalltumboff-min.svg');
+  background-image: url('../../../../images/searchForm/smalltumboff-min-2-01.svg');
   background-size: cover;
   background-repeat: no-repeat;
   width: 36px;
@@ -23,7 +23,7 @@
 }
 
 .search-form__checkbox:checked + .search-form__checkbox-span-visible {
-  background-image: url('../../../../images/searchForm/smalltumb-min.svg');
+  background-image: url('../../../../images/searchForm/smalltumb-min-1.svg');
   background-size: cover;
   background-repeat: no-repeat;
   width: 36px;

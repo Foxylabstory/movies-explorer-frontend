@@ -36,6 +36,41 @@
   margin-right: 70px;
 }
 
+.header__open-button {
+  background-image: url('../../../images/header/burger-icon.svg');
+  background-color: transparent;
+  border: none;
+  width: 44px;
+  height: 44px;
+  display: none;
+}
+
+.header__close-button {
+  background-image: url('../../../images/header/x-icon.svg');
+  background-color: transparent;
+  background-position: center;
+  border: none;
+  width: 44px;
+  height: 44px;
+  display: none;
+}
+
+.header__nav-links {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.header__nav-links-item {
+  list-style: none;
+}
+
+.header__nav-links-item:first-of-type {
+  visibility: hidden;
+}
+
 .header__link {
   color: #fff;
   font-style: normal;
@@ -49,6 +84,10 @@
 
 .header__link:hover {
   opacity: 0.7;
+}
+
+.header__link_active {
+  text-decoration: underline;
 }
 
 .header__link_films {
@@ -120,5 +159,75 @@
   right: 76%;
   top: 28.12%;
   bottom: 28.12%;
+}
+
+@media screen and (max-width: 768px) {
+  .header__links-container {
+    margin-right: 30px;
+  }
+
+  .header__open-button {
+    display: block;
+  }
+
+  .header__close-button {
+    margin-left: auto;
+    margin: 0 23px  0 auto;
+  }
+
+  .header__menu {
+    backdrop-filter: blur(2px);
+    background-color: rgba(0, 0, 0, 0.3);
+    height: 100vh;
+    /* opacity: 0; */
+    position: fixed;
+    right: 0;
+    top: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+    /* visibility: hidden; */
+    width: 100%;
+    z-index: 2;
+  }
+
+  .header__menu-navigation {
+    height: 100%;
+    width: 520px;
+    background-color: #202020;
+    margin-left: auto;
+    padding-top: 23px;
+  }
+
+  .header__nav-links {
+    flex-direction: column;
+    padding: 159px 0 90px 0;
+    row-gap: 28px;
+    height: 100%;
+  }
+
+
+  .header__nav-links-item:first-of-type {
+    visibility: visible;
+  }
+
+  .header__nav-links-item:last-of-type {
+    margin-top: auto;
+  }
   
+
+  .header__button_logged {
+    margin-left: 0;
+    margin-top: auto;
+  }
+
+  .header__menu-opened {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .header__menu-closed {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+  }
 }
