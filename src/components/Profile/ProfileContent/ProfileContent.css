@@ -163,7 +163,7 @@
 
 .profile-content__list {
   padding: 0;
-  margin: 0;
+  margin: 0 0 70px 0;
 }
 
 .profile-content__list-item {
@@ -173,4 +173,22 @@
 
 .profile-content__invisible {
   display: none;
+}
+
+@media screen and (max-width: 770px) {
+  .profile-content__header {
+    margin: 236px auto 0 auto;
+  }
+
+  .profile-content__form {
+    margin: 96px auto 0 auto;
+  }
+
+  .profile-content__message {
+    margin: 163px 0 20px 0;
+  }
+
+  .profile-content__list {
+    margin: 0 0 269px 0;
+  }
 }

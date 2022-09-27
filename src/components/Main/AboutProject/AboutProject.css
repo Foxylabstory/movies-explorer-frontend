@@ -4,8 +4,8 @@
 }
 
 .about-project__container {
-  max-width: 1280px;
-  min-height: 608px;
+  max-width: 1280px;/* 
+  min-height: 608px; */
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -85,4 +85,25 @@
 .about-project__block_witout-borders {
   font-weight: 500;
   color: #8b8b8b;
+}
+
+@media screen and (max-width: 770px) {
+  .about-project__header_main {
+    margin: 90px 50px 0 50px;
+  }
+
+  .about-project__details {
+    margin: 70px 50px 0 50px;
+    column-gap: 30px;
+    row-gap: 22px;
+  }
+
+  .about-project__content {
+    font-size: 12px;
+    line-height: 150%;
+  }
+
+  .about-project__timeline {
+    margin: 93px 50px 90px 50px;
+  }
 }

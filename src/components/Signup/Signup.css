@@ -12,3 +12,10 @@
     display: flex;
     flex-direction: column;
 }
+
+@media screen and (max-width: 770px) {
+  .signup__container {
+    padding-top: 232px;
+    padding-bottom: 232px;
+  }
+}

@@ -4,8 +4,8 @@
 }
 
 .techs__container {
-  max-width: 1280px;
-  min-height: 625px;
+  max-width: 1280px; /* 
+  min-height: 625px; */
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -51,9 +51,9 @@
 }
 
 .techs__list {
-    display: flex;
-    margin: 100px auto 0 auto;
-    padding: 0;
+  display: flex;
+  margin: 100px auto 0 auto;
+  padding: 0 0 100px 0;
 }
 
 .techs__list-item {
@@ -74,5 +74,34 @@
 }
 
 .techs__list-item:last-of-type {
-    margin-right: 0;
+  margin-right: 0;
+}
+
+@media screen and (max-width: 770px) {
+  .techs__header_main {
+    margin: 90px 50px 0 50px;
+  }
+
+  .techs__header {
+    margin: 80px 0 0 0;
+  }
+
+  .techs__description {
+    font-size: 12px;
+    line-height: 150%;
+    margin: 22px auto 0 auto;
+  }
+
+  .techs__list {
+    margin: 83px auto 0 auto;
+    padding: 0 0 90px 0;
+  }
+
+  .techs__list-item {
+    width: 84px;
+    height: 57px;
+    font-size: 12px;
+    line-height: 57px;
+    /* identical to box height */
+  }
 }

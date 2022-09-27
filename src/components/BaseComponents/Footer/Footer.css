@@ -74,3 +74,13 @@
 .footer__link:hover {
     opacity: 0.7;
 }
+
+@media screen and (max-width: 770px) {
+  .footer__header {
+    margin: 79px 30px 0 30px;
+  }
+
+  .footer__info {
+    margin: 0 30px 0 30px;
+  }
+}

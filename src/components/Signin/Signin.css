@@ -1,14 +1,21 @@
 .signin {
-    background: #202020;
-    min-height: 100vh;
-  }
-  
+  background: #202020;
+  min-height: 100vh;
+}
+
+.signin__container {
+  max-width: 396px;
+  min-height: 100vh;
+  margin: 0 auto 0 auto;
+  padding-top: 70px;
+  padding-bottom: 70px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 770px) {
   .signin__container {
-      max-width: 396px;
-      min-height: 100vh;
-      margin: 0 auto 0 auto;
-      padding-top: 70px;
-      padding-bottom: 70px;
-      display: flex;
-      flex-direction: column;
+    padding-top: 232px;
+    padding-bottom: 232px;
   }
+}

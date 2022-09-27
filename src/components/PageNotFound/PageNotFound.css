@@ -40,3 +40,10 @@
 margin: auto auto 0 auto;
   color: #3ddc84;
 }
+
+@media screen and (max-width: 770px) {
+  .page-not-found {
+    padding-top: 408px;
+    padding-bottom: 222px;
+  }
+}

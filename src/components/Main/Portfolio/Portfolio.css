@@ -64,3 +64,20 @@
   margin: 0;
   line-height: 60px;
 }
+
+@media screen and (max-width: 770px) {
+  .portfolio__header {
+    margin: 90px 50px 0 50px;
+  }
+
+  .portfolio__list {
+    margin: 50px 50px 90px 50px;
+  }
+
+  .portfolio__link {
+    font-size: 28px;
+    line-height: 179%;
+    padding-top: 10px;
+    padding-bottom: 9px;
+  }
+}

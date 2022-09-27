@@ -54,7 +54,7 @@
 }
 
 .search-form__button {
-  width: 80px;
+  min-width: 80px;
   height: 34px;
   margin-right: 19px;
   background-color: #3ddc84;
@@ -79,4 +79,14 @@
   justify-content: center;
   align-items: center;
   border-left: 1px solid #505050;
+}
+
+@media screen and (max-width: 770px) {
+  .search-form__container {
+    margin: 0 30px 10px 30px;
+  }
+
+  .search-form__form {
+    margin: 80px 0 109px 0;
+  }
 }

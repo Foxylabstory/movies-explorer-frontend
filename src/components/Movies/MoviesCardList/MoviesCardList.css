@@ -12,3 +12,11 @@
   column-gap: 24px;
   justify-content: center;
 }
+
+@media screen and (max-width: 890px) {
+  .movies-card-list__container {
+    padding: 70px 30px 30px 30px;
+    row-gap: 36px;
+    column-gap: 30px;
+}
+}
