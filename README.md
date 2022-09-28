@@ -1,12 +1,71 @@
-# movies-explorer-frontend
+# Movies Explorer (фронтенд-часть)
 
-# Getting Started with Create React App
+Репозиторий для фронтенд-части приложения с интерфейсом на React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Приложение Movies Explorer
 
-## Available Scripts
+Приложение Movies Explorer - сервис с поиском фильмов и сохранением их в личном кабинете. Учебный проект Яндекс.Практикум х BeatFilm.
 
-In the project directory, you can run:
+Это дипломный проект Яндекс.Практикума по специальности "Веб-разработчик".
+
+### Структура приложения
+
+Полностью приложение состоит из двух частей:
+
+1. [Movies Explorer (бэкенд-часть)](https://github.com/Foxylabstory/movies-explorer-api)
+2. [Функционирующее Api на отдельном сервере](https://api.foxylabstory.nomoredomains.sbs)
+2. Movies Explorer (фронтенд-часть) ⬅ _этот репозиторий_
+
+## Демо
+
+На GitHub Pages: []()
+
+## Макет в Figma
+
+[Фигма](<https://www.figma.com/file/iugITBCFQn7QdIqLy4Bbj8/Diploma>)
+[Обменник](https://disk.yandex.ru/d/MDXSRaZOMyN5FQ)
+
+## Пул-реквест для сдачи работы
+
+[github.com/Foxylabstory/movies-explorer-frontend/pull/1](https://github.com/Foxylabstory/movies-explorer-frontend/pull/1)
+
+## Используемые API
+- собственное API для регистрации/авторизации и хранения сохраненных фильмов: `https://api.foxylabstory.nomoredomains.sbs`
+- публичное API для получения коллекции фильмов BeatFilm `https://api.nomoreparties.co/beatfilm-movies`
+
+## Функциональность
+
+- Адаптивная, семантическая верстка
+- Лендинг с описанием работы, а также с информацией обо мне и ссылками на другие работы из портфолио
+- (в разработке)Отдельная страница с приложением по поиску и сохранению фильмов
+- (в разработке)Регистрация/авторизация пользователей
+- (в разработке)Поиск фильмов по ключевому слову
+- (в разработке)Постепенный вывод результатов поиска на экран при клике на копнку «Ещё»
+- (в разработке)Сохранение/удаление фильмов из результов поиска
+- (в разработке)Просмотр и удаление фильмов из сохраненных в личном кабинете
+- (в разработке)Редактирование информации о пользователе
+- (в разработке)Валидация форм перед отправкой на сервер
+- (в разработке)Прелоадеры с анимацией во время запросов к серверу
+
+## Стек технологий
+
+- HTML5, CSS3, БЭМ
+  - JSX
+  - normalize.css
+  - @media, @keyframes, transition
+- React
+  - Create React App
+  - React Router 6
+  - (в разработке)Валидация форм с помощью кастомных хуков
+  - React Context
+  - Защищенные роуты
+- Работа с API: публичное и собственное
+- Local Storage: хранение JWT-токена и параметров поиска
+
+## Статус разработки
+
+Плачу над версткой...
+
 
 ### `npm start`
 
@@ -33,40 +92,3 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

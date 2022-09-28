@@ -9,8 +9,8 @@ function Signin(props) {
         <section className="signin">
             <form className="signin__container">
                 <Greetings text={'Рады видеть!'} />
-                <SignInput header={'E-mail'} type={'email'} />
-                <SignInput header={'Пароль'} type={'password'} />
+                <SignInput header={'E-mail'} type={'email'} placeholder={'Виталий'} />
+                <SignInput header={'Пароль'} type={'password'} placeholder={'pochta@yandex.ru'} />
                 <SignButton
                     buttonText={'Войти'}
                     message={'Ещё не зарегистрированы?'}

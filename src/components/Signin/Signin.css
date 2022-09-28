@@ -19,3 +19,9 @@
     padding-bottom: 232px;
   }
 }
+
+@media screen and (max-width: 500px) {
+  .signin__container {
+    padding: 56px 30px 30px 33px;
+  }
+}
