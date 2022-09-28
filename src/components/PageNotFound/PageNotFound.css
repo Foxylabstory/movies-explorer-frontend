@@ -37,7 +37,7 @@
   /* identical to box height */
   text-decoration: none;
   text-align: center;
-margin: auto auto 0 auto;
+  margin: auto auto 0 auto;
   color: #3ddc84;
 }
 
@@ -45,5 +45,27 @@ margin: auto auto 0 auto;
   .page-not-found {
     padding-top: 408px;
     padding-bottom: 222px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .page-not-found {
+    padding-top: 329px;
+    padding-bottom: 30px;
+  }
+
+  .page-not-found__header {
+    font-size: 80px;
+    line-height: 97px;
+  }
+
+  .page-not-found__text {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .page-not-found__link {
+    font-size: 12px;
+    line-height: 15px;
   }
 }

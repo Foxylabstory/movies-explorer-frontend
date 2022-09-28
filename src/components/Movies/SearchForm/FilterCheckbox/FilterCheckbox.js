@@ -4,12 +4,12 @@ function FilterCheckbox(props) {
     return (
         <label className='search-form__label-for-checkbox'>
             <input
-                className='search-form__checkbox'
+                className={'search-form__checkbox'}
                 name='checkbox'
                 value={props.value}
                 onChange={props.onChange}
                 type={'checkbox'}></input>
-            <span className='search-form__checkbox-span search-form__checkbox-span-visible'></span>
+            <span className={props.value ? 'search-form__checkbox-span-visible' : 'search-form__checkbox-span'}></span>
             <span className='search-form__checkbox-text'>Короткометражки</span>
         </label>
     )

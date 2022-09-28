@@ -32,3 +32,9 @@
     padding: 50px 30px 80px 30px;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .more__container {
+    padding: 50px 10px 80px 10px;
+  }
+}

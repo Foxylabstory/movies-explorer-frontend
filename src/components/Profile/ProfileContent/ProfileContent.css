@@ -192,3 +192,37 @@
     margin: 0 0 269px 0;
   }
 }
+
+@media screen and (max-width: 500px) {
+  .profile-content__header {
+    margin: 70px auto 0 auto;
+  }
+
+  .profile-content__form {
+    margin: 80px auto 0 auto;
+  }
+
+  .profile-content__form {
+    width: 260px;
+    margin: 80px auto 0 auto;
+  }
+
+  .profile-content__message {
+    margin: 300px 0 20px 0;
+  }
+
+  .profile-content__button {
+    width: 260px;
+    font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  }
+
+  .profile-content__list {
+    margin: 0 0 40px 0;
+  }
+
+  .profile-content__list-item {
+    margin-bottom: 10px;
+}
+}

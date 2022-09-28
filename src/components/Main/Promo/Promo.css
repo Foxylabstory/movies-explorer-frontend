@@ -101,3 +101,29 @@
     margin: 0 auto 10px auto;
   }
 }
+
+@media screen and (max-width: 550px) {
+  .promo__logo {
+    width: 210px;
+    height: 206px;
+    margin: 70px auto 44px auto;
+  }
+
+  .promo__header {
+    font-size: 30px;
+    line-height: 1.27;
+    font-weight: 400;
+  }
+
+  .promo__container_text {
+    margin: 0 6px 0 6px;
+  }
+
+  .promo__description {
+    margin-bottom: 80px;
+  }
+
+  .promo__button {
+    margin: 0 auto 32px auto;
+  }
+}

@@ -38,10 +38,15 @@ function SearchForm(props) {
                     <button className='search-form__button' type={'submit'}></button>
                     <div className='search-form__shorts'>
                         <FilterCheckbox
-                        value={searchFormState.checkbox}
-                        onChange={handleCheckboxChange} />
+                            value={searchFormState.checkbox}
+                            onChange={handleCheckboxChange} />
                     </div>
                 </form>
+                <div className='search-form__shorts search-form__shorts_outside'>
+                    <FilterCheckbox
+                        value={searchFormState.checkbox}
+                        onChange={handleCheckboxChange} />
+                </div>
             </div>
         </section>
     )

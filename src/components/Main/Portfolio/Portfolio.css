@@ -81,3 +81,27 @@
     padding-bottom: 9px;
   }
 }
+
+@media screen and (max-width: 550px) {
+  .portfolio__header {
+    font-size: 14px;
+    line-height: 143%;
+    margin: 70px 14px 0 14px;
+  }
+
+  .portfolio__list {
+    margin: 21px 14px 49px 14px;
+    padding: 0;
+  }
+
+  .portfolio__link {
+    font-size: 18px;
+    line-height: 156%;
+    padding-top: 20px;
+    padding-bottom: 19px;
+  }
+
+  .portfolio__link-arrow {
+    line-height: 156%;
+  }
+}

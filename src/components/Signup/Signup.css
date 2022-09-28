@@ -19,3 +19,10 @@
     padding-bottom: 232px;
   }
 }
+
+@media screen and (max-width: 500px) {
+  .signup__container {
+    padding: 56px 30px 30px 33px;/* 
+    align-items: center; */
+  }
+}

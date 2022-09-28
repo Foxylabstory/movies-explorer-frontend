@@ -184,12 +184,10 @@
     backdrop-filter: blur(2px);
     background-color: rgba(0, 0, 0, 0.3);
     height: 100vh;
-    /* opacity: 0; */
     position: fixed;
     right: 0;
     top: 0;
     transition: opacity 0.3s, visibility 0.3s;
-    /* visibility: hidden; */
     width: 100%;
     z-index: 2;
   }
@@ -232,5 +230,30 @@
     display: none;
     visibility: hidden;
     opacity: 0;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .header__logo-link {
+    margin: auto auto auto 14px;
+  }
+
+  .header__links-container {
+    margin-right: 14px;
+  }
+
+  .header__link {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 160%;
+  }
+
+  .header__button_unlogged {
+    width: 54px;
+    height: 26px;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 160%;
+    margin-left: 14px;
   }
 }
