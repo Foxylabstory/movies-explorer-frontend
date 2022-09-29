@@ -41,23 +41,26 @@
   margin: 36px 0 0 70px;
 }
 
-.promo__button {
+.promo__ankhor {
+  display:block;
   width: 129px;
   height: 36px;
   border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 3px;
   margin: 146px 0 25px 70px;
   background-color: transparent;
+  text-decoration: none;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
-  line-height: 133%;
+  text-align: center;
+  line-height: 34px;
   color: #ffffff;
   cursor: pointer;
   transition: opacity 0.4s ease;
 }
 
-.promo__button:hover {
+.promo__ankhor:hover {
   opacity: 0.8;
 }
 
@@ -97,7 +100,7 @@
     margin: 22px auto 92px auto;
   }
 
-  .promo__button {
+  .promo__ankhor {
     margin: 0 auto 10px auto;
   }
 }
@@ -123,7 +126,7 @@
     margin-bottom: 80px;
   }
 
-  .promo__button {
+  .promo__ankhor {
     margin: 0 auto 32px auto;
   }
 }
