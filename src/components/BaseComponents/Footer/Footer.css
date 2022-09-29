@@ -1,0 +1,121 @@
+.footer {
+  background-color: #202020;
+  margin: 0;
+}
+
+.footer__container {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.footer__header {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  /* identical to box height */
+  text-align: center;
+  color: #8b8b8b;
+  max-width: 100%;
+  margin: 79px 70px 0 70px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #424242;
+}
+
+.footer__info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 70px 0 70px;
+}
+
+.footer__year-copyright {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  /* identical to box height */
+  color: #ffffff;
+  margin: 20px 0 20px 0;
+}
+
+.footer__list {
+  margin: 20px 0 20px 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.footer__list-item {
+  list-style: none;
+  margin-right: 20px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  /* identical to box height */
+  text-align: right;
+}
+
+.footer__list-item:last-of-type {
+  margin-right: 0;
+}
+
+.footer__link {
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.4s ease;
+}
+
+.footer__link:hover {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 770px) {
+  .footer__header {
+    margin: 79px 30px 0 30px;
+  }
+
+  .footer__info {
+    margin: 0 30px 0 30px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .footer__header {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 80px 10px 0 10px;
+  }
+
+  .footer__info {
+    flex-direction: column-reverse;
+    align-items: center;
+    margin: 0 70px 0 70px;
+  }
+
+  .footer__list {
+    margin: 31px 0 0 0;
+    padding: 0;
+    row-gap: 12px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer__list-item {
+    margin-right: 0;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+  }
+
+  .footer__year-copyright {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 30px 0 10px 0;
+  }
+}

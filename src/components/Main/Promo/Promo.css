@@ -1,0 +1,132 @@
+.promo {
+  background-color: #073042;
+  margin: 0;
+}
+
+.promo__container {
+  max-width: 1280px;
+  min-height: 524px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+}
+
+.promo__container_text {
+  display: block;
+}
+
+.promo__header {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 116%;
+  color: #ffffff;
+  text-align: left;
+  max-width: 640px;
+  margin: 75px 0 0 70px;
+}
+
+.promo__description {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: left;
+  color: #ffffff;
+  mix-blend-mode: normal;
+  opacity: 0.5;
+  max-width: 310px;
+  margin: 36px 0 0 70px;
+}
+
+.promo__ankhor {
+  display:block;
+  width: 129px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 3px;
+  margin: 146px 0 25px 70px;
+  background-color: transparent;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  text-align: center;
+  line-height: 34px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: opacity 0.4s ease;
+}
+
+.promo__ankhor:hover {
+  opacity: 0.8;
+}
+
+.promo__logo {
+  width: 310px;
+  height: 304px;
+  margin: 75px 70px 0 auto;
+}
+
+@media screen and (max-width: 1090px) {
+  .promo__container {
+    justify-content: center;
+  }
+
+  .promo__logo {
+    margin: 140px auto 48px auto;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .promo__container_text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .promo__header {
+    font-size: 40px;
+    line-height: 50px;
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 0 auto;
+  }
+
+  .promo__description {
+    text-align: center;
+    max-width: 260px;
+    margin: 22px auto 92px auto;
+  }
+
+  .promo__ankhor {
+    margin: 0 auto 10px auto;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .promo__logo {
+    width: 210px;
+    height: 206px;
+    margin: 70px auto 44px auto;
+  }
+
+  .promo__header {
+    font-size: 30px;
+    line-height: 1.27;
+    font-weight: 400;
+  }
+
+  .promo__container_text {
+    margin: 0 6px 0 6px;
+  }
+
+  .promo__description {
+    margin-bottom: 80px;
+  }
+
+  .promo__ankhor {
+    margin: 0 auto 32px auto;
+  }
+}

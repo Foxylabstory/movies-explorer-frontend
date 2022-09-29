@@ -1,0 +1,228 @@
+.profile-content {
+  margin: 0 auto;
+  max-width: 1280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-content__header {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  /* identical to box height */
+  text-align: center;
+  color: #ffffff;
+  margin: 74px auto 0 auto;
+}
+
+.profile-content__form {
+  width: 410px;
+  margin: 123px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-content__label {
+  grid-row-gap: 5px;
+  display: grid;
+  grid-template-areas:
+    'input'
+    'error';
+  grid-template-columns: 1fr;
+  margin-bottom: 5px;
+  row-gap: 5px;
+  width: 100%;
+}
+
+.profile-content__span {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  /* identical to box height */
+  color: #ffffff;
+  grid-area: input;
+}
+
+.profile-content__input {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  /* identical to box height */
+  text-align: right;
+  color: #ffffff;
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  padding-bottom: 16px;
+  padding-left: 100px;
+  padding-top: 0;
+  grid-area: input;
+  transition: opacity 0.4s, border-bottom-color 0.3s, color 0.3s;
+  border-bottom: 1px solid #424242;
+}
+
+.profile-content__input_no-border-bottom {
+  border-bottom: none;
+}
+
+.profile-content__input:focus {
+  border-bottom: 1px solid #3ddc84;
+}
+
+.profile-content__input_error {
+  border-bottom: 1px solid #ff004c;
+}
+
+.profile-content__input_error:focus {
+  border-bottom: 1px solid #ff004c;
+}
+
+.profile-content__input::placeholder {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  /* identical to box height */
+  color: #ffffff;
+}
+
+.profile-content__input:disabled {
+  opacity: 0.7;
+}
+.profile-content__error {
+  grid-area: error;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.18;
+  margin: 0;
+  min-height: 1.18em;
+  color: #ff004c;
+  text-align: center;
+}
+
+.profile-content__message {
+  margin: 0;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.18;
+  margin: 173px 0 20px 0;
+  min-height: 1.18em;
+  color: #3ddc84;
+  text-align: center;
+}
+
+.profile-content__message_error {
+  color: #ff004c;
+}
+
+.profile-content__button {
+  width: 410px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  /* identical to box height */
+  text-align: center;
+  color: #ffffff;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: opacity 0.4s ease;
+}
+
+.profile-content__button:hover {
+  opacity: 0.8;
+}
+
+.profile-content__button_submit {
+  background: #3ddc84;
+  border-radius: 3px;
+  width: 396px;
+  height: 45px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.profile-content__button_change {
+    font-weight: 400;
+}
+
+.profile-content__button_logout {
+    color: #EE3465;
+}
+
+.profile-content__list {
+  padding: 0;
+  margin: 0 0 70px 0;
+}
+
+.profile-content__list-item {
+    list-style: none;
+    margin-bottom: 16px;
+}
+
+.profile-content__invisible {
+  display: none;
+}
+
+@media screen and (max-width: 770px) {
+  .profile-content__header {
+    margin: 236px auto 0 auto;
+  }
+
+  .profile-content__form {
+    margin: 96px auto 0 auto;
+  }
+
+  .profile-content__message {
+    margin: 163px 0 20px 0;
+  }
+
+  .profile-content__list {
+    margin: 0 0 269px 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .profile-content__header {
+    margin: 70px auto 0 auto;
+  }
+
+  .profile-content__form {
+    margin: 80px auto 0 auto;
+  }
+
+  .profile-content__form {
+    width: 260px;
+    margin: 80px auto 0 auto;
+  }
+
+  .profile-content__message {
+    margin: 300px 0 20px 0;
+  }
+
+  .profile-content__button {
+    width: 260px;
+    font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  }
+
+  .profile-content__list {
+    margin: 0 0 40px 0;
+  }
+
+  .profile-content__list-item {
+    margin-bottom: 10px;
+}
+}

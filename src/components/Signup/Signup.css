@@ -1,0 +1,28 @@
+.signup {
+  background: #202020;
+  min-height: 100vh;
+}
+
+.signup__container {
+    max-width: 396px;
+    min-height: 100vh;
+    margin: 0 auto 0 auto;
+    padding-top: 70px;
+    padding-bottom: 70px;
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 770px) {
+  .signup__container {
+    padding-top: 232px;
+    padding-bottom: 232px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .signup__container {
+    padding: 56px 30px 30px 33px;/* 
+    align-items: center; */
+  }
+}
