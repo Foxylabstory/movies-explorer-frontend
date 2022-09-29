@@ -137,6 +137,10 @@
 }
 
 @media screen and (max-width: 410px) {
+  .techs {
+    background-color: #202020;
+  }
+
   .techs__list {
     justify-content: flex-start;
   }
