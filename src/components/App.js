@@ -20,7 +20,7 @@ function App() {
   const navigate = useNavigate();
 
   const [currentUser, setCurrentUser] = useState({
-    loggedIn: false,
+    loggedIn: true,
     name: "Name",
     email: 'example@domain.net',
     _id: 1,
