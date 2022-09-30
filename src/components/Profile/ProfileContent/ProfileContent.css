@@ -153,6 +153,11 @@
   line-height: 17px;
 }
 
+.profile-content__button_disable {
+  background: #2f2f2f;
+  cursor: not-allowed;
+}
+
 .profile-content__button_change {
     font-weight: 400;
 }

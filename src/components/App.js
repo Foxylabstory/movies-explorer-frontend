@@ -17,72 +17,110 @@ import Signin from './Signin/Signin';
 import PageNotFound from './PageNotFound/PageNotFound';
 import ModalWindow from './ModalWindow/ModalWindow';
 
-import { signup, signin, checkToken } from '../utils/Api/AuthApi';
+import { signup, signin, checkToken, updateUser } from '../utils/Api/MainApi';
 
 function App() {
   const navigate = useNavigate();
 
-  const [currentUser, setCurrentUser] = useState({
-    loggedIn: false,
-    name: "Name",
-    email: 'example@domain.net',
-    _id: 1,
-  });
+  const [currentUser, setCurrentUser] = useState({});
   const [isModalWindowOpen, setIsModalWindowOpen] = useState(false);
+  const [errorText, setErrorText] = useState('');
 
-  const [authorizationData, setAuthorizationData] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
+  /*   const [authorizationData, setAuthorizationData] = useState({
+      name: '',
+      email: '',
+      password: '',
+    }); */
 
-  const handleChangeInput = (event) => {
-    const { name, value } = event.target;
-    setAuthorizationData((oldData) => ({
-      ...oldData,
-      [name]: value,
-    }));
-  };
+  /*   const handleChangeInput = (event) => {
+      const { name, value } = event.target;
+      setAuthorizationData((oldData) => ({
+        ...oldData,
+        [name]: value,
+      }));
+    }; */
 
 
   const [movies, setMovies] = useState(moviesArray);
   const [savedMovies, setsavedMovies] = useState(savedMoviesArray);
 
   const handleSignUp = (name, email, password) => {
-    /* const { name, email, password } = authorizationData; */
-    console.log(`Кнорка зарегистрироваться нажата, здесь: ${name}, ${email}, ${password}`);
     setIsModalWindowOpen(true);
     signup(name, email, password)
       .then((response) => {
         console.log(response);
         if (response.email) {
-          navigate("/signin");
+          handleSignIn(email, password);
         }
       })
-      .then(() => {
-        setAuthorizationData({ name: '', email: '', password: '' });
+      .catch((err) => {
+        console.log(err);
+        setErrorText(err.status === 409 ? 'Пользователь с таким email уже зарегистрирован' : 'При регистрации пользователя произошла ошибка.');
       })
-      .catch((err) => console.error(err))
-      .finally(() => setIsModalWindowOpen(false));
+      .finally(() => {
+        setIsModalWindowOpen(false);
+        setTimeout(() => setErrorText(''), 5000);
+      });
   };
 
-  const handleSignIn = () => {
-    const { email, password } = authorizationData;
-    console.log(`Кнорка войти нажата, здесь: ${email}, ${password}`);
+  const handleSignIn = (email, password) => {
+    setIsModalWindowOpen(true);
     signin(email, password)
       .then((response) => {
-        console.log(response);
         if (response.token) {
           localStorage.setItem("jwt", response.token);
-          /* setUserEmail(email);
-          setLoggedIn(true); */
-          navigate("/");
+          checkToken().then((response) => {
+            setCurrentUser({
+              loggedIn: true,
+              name: response.name,
+              email: response.email,
+              _id: response._id,
+            });
+            navigate("/movies");
+          })
+            .catch((err) => {
+              console.log(err);
+            })
         }
       })
-      .then(() => {
-        setAuthorizationData({ password: "", email: "" });
+      .catch((err) => {
+        console.log(err);
+        setErrorText(err.status === 401 ? 'Вы ввели неправильный логин или пароль.' : 'При авторизации произошла ошибка.');
       })
-      .catch((err) => console.error(err));
+      .finally(() => {
+        setIsModalWindowOpen(false);
+        setTimeout(() => setErrorText(''), 10000);
+      });
+  };
+
+  const handleUpdate = (name, email) => {
+    setIsModalWindowOpen(true);
+    updateUser(name, email)
+      .then((response) => {
+        setCurrentUser({
+          loggedIn: true,
+          name: response.name,
+          email: response.email,
+          _id: response._id,
+        });
+        setErrorText('Изменение данных прошло успешно!');
+        console.log(response);
+      })
+      .catch((err) => {
+        setErrorText(err.status === 409 ? 'Пользователь с таким email уже существует.' : 'При обновлении профиля произошла ошибка.');
+        console.error(err);
+      })
+      .finally(() => {
+        setIsModalWindowOpen(false);
+        setTimeout(() => setErrorText(''), 10000)
+      });
+
+  };
+
+  const handleSignOut = () => {
+    localStorage.clear();
+    navigate('/');
+    setCurrentUser({});
   };
 
   return (
@@ -91,16 +129,11 @@ function App() {
         <Routes>
           <Route path='/signup' element={<Signup
             onSignUp={handleSignUp}
-            handleChangeInput={handleChangeInput}
-            nameInput={authorizationData.name}
-            emailInput={authorizationData.email}
-            passwordInput={authorizationData.password}
+            errorText={errorText}
           />} />
           <Route path='/signin' element={<Signin
             onSignIn={handleSignIn}
-            handleChangeInput={handleChangeInput}
-            emailInput={authorizationData.email}
-            passwordInput={authorizationData.password}
+            errorText={errorText}
           />} />
           <Route path='/' element={<Main />} />
           <Route path="/" element={<ProtectedRoute loggedIn={currentUser.loggedIn} />}>
@@ -111,7 +144,11 @@ function App() {
               movies={savedMovies}
               owner={1}
             />} />
-            <Route path='/profile' element={<Profile />} />
+            <Route path='/profile' element={<Profile
+              onUpdate={handleUpdate}
+              onSignOut={handleSignOut}
+              errorText={errorText}
+            />} />
           </Route>
           <Route path='/*' element={<PageNotFound />} />
         </Routes>

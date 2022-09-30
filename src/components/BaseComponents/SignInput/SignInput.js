@@ -1,6 +1,6 @@
 import './SignInput.css';
 
-function SignInput({ header, type, placeholder, handleChangeInput, value, errorText, onChange, minLength, maxLength, pattern }) {
+function SignInput({ header, type, placeholder, value, errorText, onChange, minLength, maxLength, pattern }) {
     return (
         <label className='sign-input'>
             <span className='sign-input__span sign-input__span_header'>{header}</span>

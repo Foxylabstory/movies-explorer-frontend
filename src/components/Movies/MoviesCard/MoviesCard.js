@@ -5,8 +5,6 @@ import { CurrentUserContext } from "../../../contexts/CurrentUserContext";
 function MoviesCard({ title, duration, isSaved, thumbnail, owner }) {
     const currentUser = React.useContext(CurrentUserContext);
     const isOwn = currentUser._id === owner;
-    console.log(currentUser._id);
-    console.log(isOwn);
     const formattedDuration = (duration) => {
         if (duration > 60) {
             const min = duration % 60;

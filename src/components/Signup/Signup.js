@@ -4,8 +4,9 @@ import SignButton from "../BaseComponents/SignButton/SignButton";
 import SignInput from "../BaseComponents/SignInput/SignInput";
 import './Signup.css';
 import useFormWithValidation from '../../utils/Hooks/UseFormWithValidation';
+import SpanError from "../BaseComponents/SpanError/SpanError";
 
-function Signup({ onSignUp }) {
+function Signup({ onSignUp, errorText }) {
   const inputControl = useFormWithValidation();
   const { name, email, password } = inputControl.errors;
 
@@ -26,8 +27,8 @@ function Signup({ onSignUp }) {
           value={inputControl?.values?.name || ''}
           onChange={inputControl.handleChange}
           errorText={name}
-          minLength={'5'}
-          maxLength={'40'}
+          minLength={'2'}
+          maxLength={'30'}
           pattern={'[A-Za-zА-Яа-яЁё\s-]+'}
         />
         <SignInput
@@ -43,12 +44,11 @@ function Signup({ onSignUp }) {
           header={'Пароль'}
           type={'password'}
           placeholder={'password'}
-          minLength='5'
-          maxLength='40'
           onChange={inputControl.handleChange}
           value={inputControl?.values?.password || ''}
           errorText={password}
         />
+        <SpanError errorText={errorText}/>
         <SignButton
           buttonText={'Зарегистрироваться'}
           message={'Уже зарегистрированы?'}
