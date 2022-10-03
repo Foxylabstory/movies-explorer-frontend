@@ -5,20 +5,6 @@ function MoviesCardList({ movies, owner }) {
     return (
         <section className='movies-card-list'>
             <div className='movies-card-list__container'>
-                <MoviesCard
-                    title={'33 слова о дизайне'}
-                    duration={60}
-                    isSaved={false}
-                    thumbnail={'https://api.nomoreparties.co/uploads/thumbnail_stones_in_exile_b2f1b8f4b7.jpeg'}
-                    owner={owner}
-                />
-                <MoviesCard
-                    title={'42 слова о дизайне'}
-                    duration={120}
-                    isSaved={true}
-                    thumbnail={'https://api.nomoreparties.co/uploads/thumbnail_stones_in_exile_b2f1b8f4b7.jpeg'}
-                    owner={owner}
-                />
                 {movies.map((movie) => (
                     <MoviesCard
                         title={movie.nameRU}

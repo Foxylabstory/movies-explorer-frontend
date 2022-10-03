@@ -1,4 +1,6 @@
-export const BASE_URL = "https://api.foxylabstory.nomoredomains.sbs";
+/* export const BASE_URL = "https://api.foxylabstory.nomoredomains.sbs";
+ */
+import {MAIN_API_URL as BASE_URL } from '../constants/constants';
 
 const isOk = (response) => {
   return response.ok

@@ -13,11 +13,11 @@ function ProfileContent({ onUpdate, onSignOut, errorText }) {
                 setIsUnlocked(false);
             }
         }
-
         if (isUnlocked) {
             document.addEventListener('keydown', closeByEscape);
             return () => {
                 document.removeEventListener('keydown', closeByEscape);
+                inputControl.resetForm();
             }
         }
     }, [isUnlocked])
@@ -39,7 +39,7 @@ function ProfileContent({ onUpdate, onSignOut, errorText }) {
         setIsUnlocked(false);
     };
 
-    let isCurrentUserEqualInputControl = (inputControl?.values?.name === currentUser.name /* && typeof inputControl?.values?.email === 'undefined' */)  && (inputControl?.values?.email === currentUser.email ) /* && typeof inputControl?.values?.name === 'undefined') */;
+    let isCurrentUserEqualInputControl = (inputControl?.values?.name === currentUser.name)  && (inputControl?.values?.email === currentUser.email );
 
     return (
         <section className='profile-content'>

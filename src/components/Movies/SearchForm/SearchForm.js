@@ -1,51 +1,87 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import FilterCheckbox from './FilterCheckbox/FilterCheckbox';
 import './SearchForm.css';
 
-function SearchForm(props) {
+function SearchForm({ searchKey, onChangeShortsCheckbox, shortsCheckbox, shortsCheckboxSaved, onSubmit }) {
+    const location = useLocation();
+
     const [searchFormState, setSearchFormState] = useState({
-        movie: '',
-        checkbox: false
+        errorText: '',
+        keyWord: '',
+        isFormValid: false,
     });
 
-
+    useEffect(() => {
+        if (searchKey && (location.pathname === '/movies' || location.pathname === '/saved-movies')) {
+            setSearchFormState({ keyWord: searchKey });
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleInputChange = (evt) => {
-        setSearchFormState({ ...searchFormState, [evt.target.name]: evt.target.value });
-    }
+        setSearchFormState({
+            ...searchFormState,
+            [evt.target.name]: evt.target.value,
+            isFormValid: evt.target.closest('form').checkValidity(),
+        });
 
-    const handleCheckboxChange = (evt) => {
-        setSearchFormState({ ...searchFormState, checkbox: !searchFormState.checkbox /* [evt.target.name]: !evt.target.name */ });
     }
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
+        console.log(`shortsCheckbox ${shortsCheckbox}`);
+        console.log(`localStorage.getItem('shortsCheckbox') ${localStorage.getItem('shortsCheckbox')}`);
+        console.log(`shortsCheckboxSaved ${shortsCheckboxSaved}`);
+        console.log(`localStorage.getItem('shortsCheckboxSaved') ${localStorage.getItem('shortsCheckboxSaved')}`);
         console.log(searchFormState);
+
+        setSearchFormState({
+            ...searchFormState,
+            isFormValid: evt.target.closest('form').checkValidity(),
+        });
+        if (!searchFormState.isFormValid) {
+            return setSearchFormState({
+                ...searchFormState,
+                errorText: 'Нужно ввести ключевое слово',
+            });
+        }
+        onSubmit(searchFormState.keyWord);
+        /* setSearchFormState({
+            errorText: '',
+        }); */
     }
     return (
         <section className='search-form'>
             <div className='search-form__container'>
-                <form className='search-form__form' onSubmit={handleSubmit}>
+                <form className='search-form__form' onSubmit={handleSubmit} noValidate>
                     <div className='search-form__icon'></div>
                     <input
                         className='search-form__input'
-                        name='movie'
-                        value={searchFormState.movie}
+                        name='keyWord'
+                        value={searchFormState.keyWord}
                         onChange={handleInputChange}
                         type={'text'}
                         placeholder='Фильм'
-                        required></input>
+                        required
+                        minLength='1'
+                    ></input>
                     <button className='search-form__button' type={'submit'}></button>
                     <div className='search-form__shorts'>
                         <FilterCheckbox
-                            value={searchFormState.checkbox}
-                            onChange={handleCheckboxChange} />
+                            value={localStorage.getItem('shortsCheckbox')}
+                            onChange={onChangeShortsCheckbox}
+                            shortsCheckbox={shortsCheckbox}
+                            shortsCheckboxSaved={shortsCheckboxSaved} />
                     </div>
                 </form>
+                <span className='search-form__error'>{searchFormState.errorText}</span>
                 <div className='search-form__shorts search-form__shorts_outside'>
                     <FilterCheckbox
-                        value={searchFormState.checkbox}
-                        onChange={handleCheckboxChange} />
+                        value={localStorage.getItem('shortsCheckbox')}
+                        onChange={onChangeShortsCheckbox}
+                        shortsCheckbox={shortsCheckbox}
+                        shortsCheckboxSaved={shortsCheckboxSaved} />
                 </div>
             </div>
         </section>

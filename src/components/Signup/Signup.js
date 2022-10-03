@@ -29,6 +29,7 @@ function Signup({ onSignUp, errorText }) {
           errorText={name}
           minLength={'2'}
           maxLength={'30'}
+          // eslint-disable-next-line no-useless-escape
           pattern={'[A-Za-zА-Яа-яЁё\s-]+'}
         />
         <SignInput

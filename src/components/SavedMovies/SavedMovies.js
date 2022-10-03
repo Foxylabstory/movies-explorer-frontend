@@ -7,7 +7,7 @@ import SearchForm from "../Movies/SearchForm/SearchForm";
 import Devider from "./Devider/Devider";
 import Footer from "../BaseComponents/Footer/Footer";
 
-function SavedMovies({ movies, owner }) {
+function SavedMovies({ searchKey, movies, owner, onChangeShortsCheckbox, shortsCheckboxSaved, onSubmit }) {
   return (
     <div className="saved-movies">
       <Header>
@@ -15,7 +15,11 @@ function SavedMovies({ movies, owner }) {
         <Link className="header__link header__link_saved-films" to={"/saved-movies"}>Сохранённые фильмы</Link>
         <Link className="header__button header__button_logged" to={"/profile"}>Аккаунт</Link>
       </Header>
-      <SearchForm />
+      <SearchForm
+        onChangeShortsCheckbox={onChangeShortsCheckbox}
+        shortsCheckboxSaved={shortsCheckboxSaved}
+        searchKey={searchKey}
+        onSubmit={onSubmit} />
       <MoviesCardList movies={movies} owner={owner} />
       <Devider />
       <Footer />
