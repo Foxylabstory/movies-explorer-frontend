@@ -4,7 +4,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 import { MOVIE_API_PATH_FOR_THUMBNAIL } from '../../../utils/constants/constants';
 
-function MoviesCardList({ movies, owner, preloader, errorText, displayMeMovies, handlePutOrDeleteLike, isMovieAlreadySaved }) {
+function MoviesCardList({ movies, preloader, errorText, displayMeMovies, handlePutOrDeleteLike, isMovieAlreadySaved, savedMovies, handleDeleteMovie }) {
     const location = useLocation();
 
     return (
@@ -12,7 +12,7 @@ function MoviesCardList({ movies, owner, preloader, errorText, displayMeMovies, 
             <div className='movies-card-list__container'>
                 {preloader && <Preloader />}
                 {errorText.length > 0 && <p className='movies-card-list__message'>{errorText}</p>}
-                {movies && movies.slice(0, (location.pathname === '/movies' && displayMeMovies)).map((movie) => {
+                {location.pathname === '/movies' && movies && movies.slice(0, displayMeMovies).map((movie) => {
                     const isAlreadySaved = isMovieAlreadySaved(movie);
                     return (<MoviesCard
                         title={movie.nameRU}
@@ -20,11 +20,22 @@ function MoviesCardList({ movies, owner, preloader, errorText, displayMeMovies, 
                         thumbnail={MOVIE_API_PATH_FOR_THUMBNAIL + movie.image.formats.thumbnail.url}
                         movieId={movie.id}
                         key={movie.id}
-                        owner={owner}
                         handlePutOrDeleteLike={handlePutOrDeleteLike}
                         wholeMovie={movie}
                         isAlreadySaved={isAlreadySaved}
                         href={movie.trailerLink}
+                    />)
+                })}
+                {location.pathname === '/saved-movies' && savedMovies && savedMovies.map((movie) => {
+                    return (<MoviesCard
+                        title={movie.nameRU}
+                        duration={movie.duration}
+                        thumbnail={movie.image}
+                        key={movie._id}
+                        href={movie.trailerLink}
+                        isOwn={true}
+                        wholeMovie={movie}
+                        handlePutOrDeleteLike={handleDeleteMovie}
                     />)
                 })}
             </div>

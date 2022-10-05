@@ -93,6 +93,7 @@ function App() {
     setMovieArrayAfterSearch(JSON.parse(localStorage.getItem('movieArrayAfterSearch')));
     setShortMovieArrayAfterSearch(JSON.parse(localStorage.getItem('shortMovieArrayAfterSearch')));
     getSavedMoviesFromMainApi();
+    console.log(localStorage);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -201,6 +202,7 @@ function App() {
     setShortMovieArrayAfterSearch([]);
     setSavedMovies([]);
     setShortSavedMovies([]);
+    console.log(localStorage);
   };
 
   const tokencheck = () => {
@@ -318,20 +320,24 @@ function App() {
           clearErrorText();
         });
     } else if (isMovieAlreadySaved(movie)) {
-      deleteMovie(getHexId(movie))
-        .then(() => {
-          getSavedMoviesFromMainApi();
-        })
-        .catch((err) => {
-          setErrorText('Произошла ошибка при удалении фильма');
-          console.error(err);
-        })
-        .finally(() => {
-          setIsModalWindowOpen(false);
-          clearErrorText();
-        });
+      handleDeleteMovie(getHexId(movie));
     };
+  }
 
+  const handleDeleteMovie = (hexId) => {
+    setIsModalWindowOpen(true);
+    deleteMovie(hexId)
+      .then(() => {
+        getSavedMoviesFromMainApi();
+      })
+      .catch((err) => {
+        setErrorText('Произошла ошибка при удалении фильма');
+        console.error(err);
+      })
+      .finally(() => {
+        setIsModalWindowOpen(false);
+        clearErrorText();
+      });
   }
 
   const getSavedMoviesFromMainApi = () => {
@@ -348,13 +354,17 @@ function App() {
 
   const isMovieAlreadySaved = (movie) => {
     const savedMovieArrayFromLocalStorage = JSON.parse(localStorage.getItem('savedMovies'));
-    return savedMovieArrayFromLocalStorage.some((mov) => mov.movieId === movie.id);
+    if (savedMovieArrayFromLocalStorage) {
+      return savedMovieArrayFromLocalStorage.some((mov) => mov.movieId === movie.id);
+    };
   };
 
   const getHexId = (movie) => {
     const savedMovieArrayFromLocalStorage = JSON.parse(localStorage.getItem('savedMovies'));
-    return savedMovieArrayFromLocalStorage.find((mov) => mov.movieId === movie.id)._id;
-  }
+    if (savedMovieArrayFromLocalStorage) {
+      return savedMovieArrayFromLocalStorage.find((mov) => mov.movieId === movie.id)._id;
+    };
+  };
 
   return (
     <div className="App">
@@ -386,14 +396,15 @@ function App() {
             />} />
             <Route path='/saved-movies' element={<SavedMovies
               // searchKey={localStorage.getItem('searchKeySaved')} // обновил, но нужно ли? если при загрузке формы он не должен подставлять последнее слово поиска, потому что показывает сразу все фильмы
-              movies={savedMovies} // обновил
-              shortMovies={shortSavedMovies} // обновил
+              savedMovies={savedMovies} // обновил
+              shortSavedMovies={shortSavedMovies} // обновил
               owner={1}
               onChangeShortsCheckbox={handleChangeShortsCheckbox}
               shortsCheckboxSaved={shortsCheckboxSaved}
               onSubmit={handleSearchSavedMovies} // обновил
               preloader={preloader}
               errorText={errorText}
+              handleDeleteMovie={handleDeleteMovie}
             />} />
             <Route path='/profile' element={<Profile
               onUpdate={handleUpdateUserInfo}

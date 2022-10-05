@@ -9,14 +9,14 @@ import Footer from "../BaseComponents/Footer/Footer";
 
 function SavedMovies({
   searchKey,
-  movies,
-  shortMovies,
-  owner,
+  savedMovies,
+  shortSavedMovies,
   onChangeShortsCheckbox,
   shortsCheckboxSaved,
   onSubmit,
   preloader,
   errorText,
+  handleDeleteMovie,
 }) {
   return (
     <div className="saved-movies">
@@ -27,13 +27,13 @@ function SavedMovies({
         searchKey={searchKey}
         onSubmit={onSubmit} />
       <MoviesCardList
-        movies={!shortsCheckboxSaved ? movies : shortMovies}
-        owner={owner}
+        savedMovies={!shortsCheckboxSaved ? savedMovies : shortSavedMovies}
         preloader={preloader}
         errorText={errorText}
+        handleDeleteMovie={handleDeleteMovie}
       />
       <Devider />
-      <Footer margin={movies.length} />
+      <Footer margin={savedMovies.length} />
     </div>
   )
 }

@@ -1,11 +1,10 @@
 import React from "react";
+import { useLocation } from 'react-router-dom';
 import './MoviesCard.css';
-import { CurrentUserContext } from "../../../contexts/CurrentUserContext";
 // import { MOVIE_API_PATH_FOR_THUMBNAIL } from '../../../utils/constants/constants';
 
-function MoviesCard({ title, duration, thumbnail, owner, handlePutOrDeleteLike, wholeMovie, isAlreadySaved, href }) {
-    const currentUser = React.useContext(CurrentUserContext);
-    const isOwn = currentUser._id === owner;
+function MoviesCard({ title, duration, thumbnail, handlePutOrDeleteLike, wholeMovie, isAlreadySaved, href, isOwn }) {
+    const location = useLocation();
     const formattedDuration = (duration) => {
         if (duration > 60) {
             const min = duration % 60;
@@ -19,7 +18,7 @@ function MoviesCard({ title, duration, thumbnail, owner, handlePutOrDeleteLike, 
     }
 
     const onLike = () => {
-        handlePutOrDeleteLike(wholeMovie);
+        handlePutOrDeleteLike(location.pathname === '/saved-movies' ? wholeMovie._id : wholeMovie);
     }
 
     return (
