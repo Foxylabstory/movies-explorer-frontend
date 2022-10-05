@@ -17,7 +17,8 @@ function Movies({
   errorText,
   handleShowMoreMovies,
   displayMeMovies,
-  isMoreButtonVisible,
+  handlePutOrDeleteLike,
+  isMovieAlreadySaved,
 }) {
 
   return (
@@ -34,6 +35,8 @@ function Movies({
         movies={!shortsCheckbox ? movies : shortMovies}
         preloader={preloader}
         errorText={errorText}
+        handlePutOrDeleteLike={handlePutOrDeleteLike}
+        isMovieAlreadySaved={isMovieAlreadySaved}
       />
       {movies && !shortsCheckbox && displayMeMovies < movies.length && <More handleShowMoreMovies={handleShowMoreMovies} />}
       {shortMovies && shortsCheckbox && displayMeMovies < shortMovies.length && <More handleShowMoreMovies={handleShowMoreMovies} />}

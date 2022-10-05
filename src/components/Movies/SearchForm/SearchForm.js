@@ -31,12 +31,6 @@ function SearchForm({ searchKey, onChangeShortsCheckbox, shortsCheckbox, shortsC
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        console.log(`shortsCheckbox ${shortsCheckbox}`);
-        console.log(`localStorage.getItem('shortsCheckbox') ${localStorage.getItem('shortsCheckbox')}`);
-        console.log(`shortsCheckboxSaved ${shortsCheckboxSaved}`);
-        console.log(`localStorage.getItem('shortsCheckboxSaved') ${localStorage.getItem('shortsCheckboxSaved')}`);
-        console.log(searchFormState);
-
         setSearchFormState({
             ...searchFormState,
             isFormValid: evt.target.closest('form').checkValidity(),
@@ -48,9 +42,6 @@ function SearchForm({ searchKey, onChangeShortsCheckbox, shortsCheckbox, shortsC
             });
         }
         onSubmit(searchFormState.keyWord);
-        /* setTimeout(() => setSearchFormState({
-            errorText: 'FooBar',
-        }), 7000); */
 
     }
     return (

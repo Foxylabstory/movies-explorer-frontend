@@ -20,6 +20,7 @@ function ProfileContent({ onUpdate, onSignOut, errorText }) {
                 inputControl.resetForm();
             }
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isUnlocked])
 
     const handleUnlock = () => {
@@ -32,8 +33,6 @@ function ProfileContent({ onUpdate, onSignOut, errorText }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         const { name, email } = inputControl.values;
-        console.log(name, email);
-        console.log(currentUser);
         onUpdate(name, email);
         inputControl.resetForm();
         setIsUnlocked(false);

@@ -5,9 +5,6 @@ import ProtectedRoute from "./BaseComponents/ProtectedRoute";
 
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-/* import moviesArray from '../utils/MoviesArray';
-import savedMoviesArray from '../utils/SavedMoviesArray'; */
-
 import Main from './Main/Main';
 import Movies from './Movies/Movies';
 import SavedMovies from './SavedMovies/SavedMovies';
@@ -17,7 +14,15 @@ import Signin from './Signin/Signin';
 import PageNotFound from './PageNotFound/PageNotFound';
 import ModalWindow from './ModalWindow/ModalWindow';
 
-import { signup, signin, checkToken, updateUser } from '../utils/Api/MainApi';
+import {
+  signup,
+  signin,
+  checkToken,
+  updateUser,
+  getSavedMovies,
+  createMovie,
+  deleteMovie,
+} from '../utils/Api/MainApi';
 import { getAllMovies } from '../utils/Api/MoviesApi';
 import {
   /* CREATED,
@@ -53,9 +58,6 @@ function App() {
   const [moviesToLoad, setMoviesToLoad] = useState(0);
   const [displayMeMovies, setDisplayMeMovies] = useState(0);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [isMoreButtonVisible, setIsMoreButtonVisible] = useState(false);
-
-
 
   /*   const [authorizationData, setAuthorizationData] = useState({
       name: '',
@@ -73,25 +75,24 @@ function App() {
 
   const [movieArrayAfterSearch, setMovieArrayAfterSearch] = useState([]);
   const [shortMovieArrayAfterSearch, setShortMovieArrayAfterSearch] = useState([]);
-  const [savedMovies, setsavedMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [shortSavedMovies, setShortSavedMovies] = useState([]);
 
   useEffect(() => {
+    tokencheck();
     if (localStorage.getItem('shortsCheckboxSaved') === 'true') {
       setShortsCheckboxSaved(true);
     } else {
-      setShortsCheckbox(false);
+      setShortsCheckboxSaved(false);
     };
     if (localStorage.getItem('shortsCheckbox') === 'true') {
       setShortsCheckbox(true);
     } else {
-      setShortsCheckboxSaved(false);
+      setShortsCheckbox(false);
     };
-    console.log(localStorage);
-    console.log(movieArrayAfterSearch);
-    console.log(shortMovieArrayAfterSearch);
     setMovieArrayAfterSearch(JSON.parse(localStorage.getItem('movieArrayAfterSearch')));
     setShortMovieArrayAfterSearch(JSON.parse(localStorage.getItem('shortMovieArrayAfterSearch')));
-    tokencheck();
+    getSavedMoviesFromMainApi();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -123,13 +124,12 @@ function App() {
     setIsModalWindowOpen(true);
     signup(name, email, password)
       .then((response) => {
-        console.log(response);
         if (response.email) {
           handleSignIn(email, password);
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         setErrorText(err.status === CONFLICT ? 'Пользователь с таким email уже зарегистрирован' : 'При регистрации пользователя произошла ошибка.');
       })
       .finally(() => {
@@ -154,12 +154,12 @@ function App() {
             navigate("/movies");
           })
             .catch((err) => {
-              console.log(err);
+              console.error(err);
             })
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         setErrorText(err.status === UNAUTHORIZED ? 'Вы ввели неправильный логин или пароль.' : 'При авторизации произошла ошибка.');
       })
       .finally(() => {
@@ -179,7 +179,6 @@ function App() {
           _id: response._id,
         });
         setErrorText('Изменение данных прошло успешно!');
-        console.log(response);
       })
       .catch((err) => {
         setErrorText(err.status === CONFLICT ? 'Пользователь с таким email уже существует.' : 'При обновлении профиля произошла ошибка.');
@@ -193,15 +192,15 @@ function App() {
   };
 
   const handleSignOut = () => {
-    console.log(localStorage);
     localStorage.clear();
-    console.log(localStorage);
     navigate('/');
     setCurrentUser({});
     setShortsCheckbox(false);
     setShortsCheckboxSaved(false);
     setMovieArrayAfterSearch([]);
     setShortMovieArrayAfterSearch([]);
+    setSavedMovies([]);
+    setShortSavedMovies([]);
   };
 
   const tokencheck = () => {
@@ -250,22 +249,12 @@ function App() {
     const shortMovieArrayAfterSearch = movieArrayAfterSearch.filter(film => film.duration <= SHORT_FILM_DURATION);
     localStorage.setItem('shortMovieArrayAfterSearch', JSON.stringify(shortMovieArrayAfterSearch));
     setShortMovieArrayAfterSearch(shortMovieArrayAfterSearch);
-    // Сохранение чекбокса происходит сразу в handleChangeShortsCheckbox, эта строка не нужна localStorage.setItem('checkbox', shortsCheckbox);
     if (location.pathname === '/movies' && movieArrayAfterSearch.length === 0) {
       setErrorText('Ничего не найдено');
     } else if (location.pathname === '/movies' && shortsCheckbox && shortMovieArrayAfterSearch.length === 0) {
       setErrorText('Ничего не найдено');
     };
-    if (movieArrayAfterSearch.length > displayMeMovies && location.pathname === '/movies') {
-      setIsMoreButtonVisible(true);
-    } else if (shortMovieArrayAfterSearch.length > displayMeMovies && location.pathname === '/saved-movies') {
-      setIsMoreButtonVisible(true);
-    };
-    
   };
-
-
-
 
   const handleSearchMovies = (keyWord) => {
     setPreloader(true);
@@ -280,7 +269,7 @@ function App() {
         })
         .catch((err) => {
           setErrorText('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
-          console.log(err);
+          console.error(err);
         })
         .finally(() => {
           setPreloader(false);
@@ -292,6 +281,80 @@ function App() {
       clearErrorText();
     };
   };
+
+  const handleSearchSavedMovies = (keyWord) => {
+    setPreloader(true);
+    setErrorText('');
+    localStorage.setItem('searchKeySaved', keyWord);
+    const savedMovieArrayFromLocalStorage = JSON.parse(localStorage.getItem('savedMovies'));
+    const savedMovieArrayAfterSearch = savedMovieArrayFromLocalStorage.filter(film => film.nameRU.toLowerCase().includes(keyWord.toLowerCase()));
+    localStorage.setItem('savedMovieArrayAfterSearch', JSON.stringify(savedMovieArrayAfterSearch));
+    setSavedMovies(savedMovieArrayAfterSearch);
+    const shortSavedMovieArrayAfterSearch = savedMovieArrayAfterSearch.filter(film => film.duration <= SHORT_FILM_DURATION);
+    localStorage.setItem('shortSavedMovieArrayAfterSearch', JSON.stringify(shortSavedMovieArrayAfterSearch));
+    setShortSavedMovies(shortSavedMovieArrayAfterSearch);
+    if (location.pathname === '/saved-movies' && savedMovieArrayAfterSearch.length === 0) {
+      setErrorText('Ничего не найдено');
+    } else if (location.pathname === '/saved-movies' && shortsCheckboxSaved && shortSavedMovieArrayAfterSearch.length === 0) {
+      setErrorText('Ничего не найдено');
+    };
+    setPreloader(false);
+    clearErrorText();
+  }
+
+  const handlePutOrDeleteLike = (movie) => {
+    setIsModalWindowOpen(true);
+    if (!isMovieAlreadySaved(movie)) {
+      createMovie(movie)
+        .then(() => {
+          getSavedMoviesFromMainApi();
+        })
+        .catch((err) => {
+          setErrorText('Произошла ошибка при добавлении фильма');
+          console.error(err);
+        })
+        .finally(() => {
+          setIsModalWindowOpen(false);
+          clearErrorText();
+        });
+    } else if (isMovieAlreadySaved(movie)) {
+      deleteMovie(getHexId(movie))
+        .then(() => {
+          getSavedMoviesFromMainApi();
+        })
+        .catch((err) => {
+          setErrorText('Произошла ошибка при удалении фильма');
+          console.error(err);
+        })
+        .finally(() => {
+          setIsModalWindowOpen(false);
+          clearErrorText();
+        });
+    };
+
+  }
+
+  const getSavedMoviesFromMainApi = () => {
+    getSavedMovies()
+      .then((savedMovies) => {
+        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+        setSavedMovies(savedMovies);
+        const shortSavedMovies = savedMovies.filter(film => film.duration <= SHORT_FILM_DURATION);
+        localStorage.setItem('shortSavedMovies', JSON.stringify(shortSavedMovies));
+        setShortSavedMovies(shortSavedMovies);
+      })
+      .catch((err) => console.error(err));
+  }
+
+  const isMovieAlreadySaved = (movie) => {
+    const savedMovieArrayFromLocalStorage = JSON.parse(localStorage.getItem('savedMovies'));
+    return savedMovieArrayFromLocalStorage.some((mov) => mov.movieId === movie.id);
+  };
+
+  const getHexId = (movie) => {
+    const savedMovieArrayFromLocalStorage = JSON.parse(localStorage.getItem('savedMovies'));
+    return savedMovieArrayFromLocalStorage.find((mov) => mov.movieId === movie.id)._id;
+  }
 
   return (
     <div className="App">
@@ -318,19 +381,19 @@ function App() {
               errorText={errorText}
               handleShowMoreMovies={handleShowMoreMovies}
               displayMeMovies={displayMeMovies}
-              isMoreButtonVisible={isMoreButtonVisible}
+              handlePutOrDeleteLike={handlePutOrDeleteLike}
+              isMovieAlreadySaved={isMovieAlreadySaved}
             />} />
             <Route path='/saved-movies' element={<SavedMovies
-              movies={savedMovies}
+              // searchKey={localStorage.getItem('searchKeySaved')} // обновил, но нужно ли? если при загрузке формы он не должен подставлять последнее слово поиска, потому что показывает сразу все фильмы
+              movies={savedMovies} // обновил
+              shortMovies={shortSavedMovies} // обновил
               owner={1}
               onChangeShortsCheckbox={handleChangeShortsCheckbox}
               shortsCheckboxSaved={shortsCheckboxSaved}
-              searchKey={localStorage.getItem('searchKey')}
-              onSubmit={handleSearchMovies}
+              onSubmit={handleSearchSavedMovies} // обновил
               preloader={preloader}
               errorText={errorText}
-              handleShowMoreMovies={handleShowMoreMovies}
-              displayMeMovies={displayMeMovies}
             />} />
             <Route path='/profile' element={<Profile
               onUpdate={handleUpdateUserInfo}
