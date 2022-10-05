@@ -3,7 +3,7 @@ import './MoviesCard.css';
 import { CurrentUserContext } from "../../../contexts/CurrentUserContext";
 // import { MOVIE_API_PATH_FOR_THUMBNAIL } from '../../../utils/constants/constants';
 
-function MoviesCard({ title, duration, thumbnail, owner, handlePutOrDeleteLike, wholeMovie, isAlreadySaved }) {
+function MoviesCard({ title, duration, thumbnail, owner, handlePutOrDeleteLike, wholeMovie, isAlreadySaved, href }) {
     const currentUser = React.useContext(CurrentUserContext);
     const isOwn = currentUser._id === owner;
     const formattedDuration = (duration) => {
@@ -18,7 +18,7 @@ function MoviesCard({ title, duration, thumbnail, owner, handlePutOrDeleteLike, 
         }
     }
 
-    const onPutLike = () => {
+    const onLike = () => {
         handlePutOrDeleteLike(wholeMovie);
     }
 
@@ -30,8 +30,10 @@ function MoviesCard({ title, duration, thumbnail, owner, handlePutOrDeleteLike, 
             </div>
             <div
                 className={'movies-card__mark ' + (isAlreadySaved ? 'movies-card__mark_saved' : 'movies-card__mark_unsaved') + (isOwn ? ' movies-card__mark_own' : '')}
-                onClick={onPutLike}></div>
-            <img className='movies-card__img' src={thumbnail} alt={title}></img>
+                onClick={onLike}
+            ></div>
+            <a className='movies-card__link' href={href} target="_blank" rel="noopener noreferrer" title={title}>
+            <img className='movies-card__img' src={thumbnail} alt={title}></img></a>
         </div>
     )
 }

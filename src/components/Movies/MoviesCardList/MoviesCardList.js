@@ -24,6 +24,7 @@ function MoviesCardList({ movies, owner, preloader, errorText, displayMeMovies, 
                         handlePutOrDeleteLike={handlePutOrDeleteLike}
                         wholeMovie={movie}
                         isAlreadySaved={isAlreadySaved}
+                        href={movie.trailerLink}
                     />)
                 })}
             </div>
