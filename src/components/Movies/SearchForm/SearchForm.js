@@ -22,6 +22,7 @@ function SearchForm({ searchKey, onChangeShortsCheckbox, shortsCheckbox, shortsC
     const handleInputChange = (evt) => {
         setSearchFormState({
             ...searchFormState,
+            errorText: '',
             [evt.target.name]: evt.target.value,
             isFormValid: evt.target.closest('form').checkValidity(),
         });
@@ -47,9 +48,10 @@ function SearchForm({ searchKey, onChangeShortsCheckbox, shortsCheckbox, shortsC
             });
         }
         onSubmit(searchFormState.keyWord);
-        /* setSearchFormState({
-            errorText: '',
-        }); */
+        /* setTimeout(() => setSearchFormState({
+            errorText: 'FooBar',
+        }), 7000); */
+
     }
     return (
         <section className='search-form'>

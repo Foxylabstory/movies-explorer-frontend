@@ -1,4 +1,3 @@
-import React from "react";
 import './Movies.css';
 import Header from "../BaseComponents/Header/Header";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
@@ -7,7 +6,20 @@ import SearchForm from "./SearchForm/SearchForm";
 import More from "./More/More";
 import Footer from "../BaseComponents/Footer/Footer";
 
-function Movies({ searchKey, onChangeShortsCheckbox, shortsCheckbox, movies, onSubmit }) {
+function Movies({
+  searchKey,
+  onChangeShortsCheckbox,
+  shortsCheckbox,
+  movies,
+  shortMovies,
+  onSubmit,
+  preloader,
+  errorText,
+  handleShowMoreMovies,
+  displayMeMovies,
+  isMoreButtonVisible,
+}) {
+
   return (
     <div className="movies">
       <Header />
@@ -18,8 +30,13 @@ function Movies({ searchKey, onChangeShortsCheckbox, shortsCheckbox, movies, onS
         onSubmit={onSubmit}
       />
       <MoviesCardList
-        movies={movies} />
-      <More />
+        displayMeMovies={displayMeMovies}
+        movies={!shortsCheckbox ? movies : shortMovies}
+        preloader={preloader}
+        errorText={errorText}
+      />
+      {movies && !shortsCheckbox && displayMeMovies < movies.length && <More handleShowMoreMovies={handleShowMoreMovies} />}
+      {shortMovies && shortsCheckbox && displayMeMovies < shortMovies.length && <More handleShowMoreMovies={handleShowMoreMovies} />}
       <Footer />
     </div>
   )

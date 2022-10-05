@@ -13,6 +13,14 @@
   justify-content: center;
 }
 
+.movies-card-list__message{
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 138%;
+  color: #ffffff;
+}
+
 @media screen and (max-width: 890px) {
   .movies-card-list__container {
     padding: 70px 30px 30px 30px;

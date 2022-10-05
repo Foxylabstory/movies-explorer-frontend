@@ -1,8 +1,8 @@
 import './Footer.css';
 
-function Footer(props) {
+function Footer({margin}) {
     return (
-        <section className='footer'>
+        <section className={`footer ${margin ===0 && 'footer_empty'}`}>
             <div className='footer__container'>
                 <h3 className='footer__header'>Учебный проект Яндекс.Практикум х BeatFilm.</h3>
                 <div className='footer__info'>

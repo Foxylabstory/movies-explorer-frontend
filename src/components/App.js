@@ -29,6 +29,17 @@ import {
   INTERNAL_SERVER_ERROR, */
 } from '../utils/constants/errorStatuses';
 
+import {
+  BREAKPOINT_1280,
+  BREAKPOINT_480,
+  VISIBLE_MOVIES_5,
+  VISIBLE_MOVIES_8,
+  VISIBLE_MOVIES_12,
+  MOVIES_TO_LOAD_2,
+  MOVIES_TO_LOAD_3,
+  SHORT_FILM_DURATION,
+} from '../utils/constants/constants';
+
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -38,7 +49,13 @@ function App() {
   const [errorText, setErrorText] = useState('');
   const [shortsCheckbox, setShortsCheckbox] = useState(false);
   const [shortsCheckboxSaved, setShortsCheckboxSaved] = useState(false);
-  const [isFound, setIsFound] = useState(false); //если не нашел ни одного фильма
+  const [preloader, setPreloader] = useState(false);
+  const [moviesToLoad, setMoviesToLoad] = useState(0);
+  const [displayMeMovies, setDisplayMeMovies] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isMoreButtonVisible, setIsMoreButtonVisible] = useState(false);
+
+
 
   /*   const [authorizationData, setAuthorizationData] = useState({
       name: '',
@@ -54,8 +71,8 @@ function App() {
       }));
     }; */
 
-
-  const [movies, setMovies] = useState([]);
+  const [movieArrayAfterSearch, setMovieArrayAfterSearch] = useState([]);
+  const [shortMovieArrayAfterSearch, setShortMovieArrayAfterSearch] = useState([]);
   const [savedMovies, setsavedMovies] = useState([]);
 
   useEffect(() => {
@@ -69,8 +86,38 @@ function App() {
     } else {
       setShortsCheckboxSaved(false);
     };
-
+    console.log(localStorage);
+    console.log(movieArrayAfterSearch);
+    console.log(shortMovieArrayAfterSearch);
+    setMovieArrayAfterSearch(JSON.parse(localStorage.getItem('movieArrayAfterSearch')));
+    setShortMovieArrayAfterSearch(JSON.parse(localStorage.getItem('shortMovieArrayAfterSearch')));
+    tokencheck();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    if (location.pathname === '/movies') {
+      if (windowWidth <= BREAKPOINT_480) {
+        setDisplayMeMovies(VISIBLE_MOVIES_5);
+        setMoviesToLoad(MOVIES_TO_LOAD_2);
+      } else if (windowWidth < BREAKPOINT_1280 && windowWidth > BREAKPOINT_480) {
+        setDisplayMeMovies(VISIBLE_MOVIES_8);
+        setMoviesToLoad(MOVIES_TO_LOAD_2);
+      } else if (windowWidth >= BREAKPOINT_1280) {
+        setDisplayMeMovies(VISIBLE_MOVIES_12);
+        setMoviesToLoad(MOVIES_TO_LOAD_3);
+      };
+    };
+    window.addEventListener('resize', handleWindowResize);
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  }, [windowWidth, location]);
+
+  const clearErrorText = () => { setTimeout(() => setErrorText(''), 10000) };
 
   const handleSignUp = (name, email, password) => {
     setIsModalWindowOpen(true);
@@ -87,7 +134,7 @@ function App() {
       })
       .finally(() => {
         setIsModalWindowOpen(false);
-        setTimeout(() => setErrorText(''), 10000);
+        clearErrorText();
       });
   };
 
@@ -117,11 +164,11 @@ function App() {
       })
       .finally(() => {
         setIsModalWindowOpen(false);
-        setTimeout(() => setErrorText(''), 10000);
+        clearErrorText();
       });
   };
 
-  const handleUpdate = (name, email) => {
+  const handleUpdateUserInfo = (name, email) => {
     setIsModalWindowOpen(true);
     updateUser(name, email)
       .then((response) => {
@@ -140,18 +187,44 @@ function App() {
       })
       .finally(() => {
         setIsModalWindowOpen(false);
-        setTimeout(() => setErrorText(''), 10000);
+        clearErrorText();
       });
 
   };
 
   const handleSignOut = () => {
+    console.log(localStorage);
     localStorage.clear();
+    console.log(localStorage);
     navigate('/');
     setCurrentUser({});
     setShortsCheckbox(false);
     setShortsCheckboxSaved(false);
+    setMovieArrayAfterSearch([]);
+    setShortMovieArrayAfterSearch([]);
   };
+
+  const tokencheck = () => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      checkToken()
+        .then((response) => {
+          if (response) {
+            setCurrentUser({
+              loggedIn: true,
+              name: response.name,
+              email: response.email,
+              _id: response._id,
+            });
+            navigate('/movies');
+          }
+        })
+        .catch((err) => {
+          handleSignOut();
+          console.error(err);
+        });
+    }
+  }
 
   const handleChangeShortsCheckbox = (evt) => {
     if (location.pathname === '/movies') {
@@ -163,45 +236,60 @@ function App() {
     }
   };
 
-  const searchMovie = (movies, name) => {
-    return movies.filter((item) =>
-      item.nameRU.toLowerCase().includes(name.toLowerCase())
-    );
+  const handleShowMoreMovies = () => {
+    setDisplayMeMovies(displayMeMovies + moviesToLoad);
   };
 
-  
+  const searchMovie = (keyWord) => {
+    setErrorText('');
+    localStorage.setItem('searchKey', keyWord);
+    const movieArrayFromLocalStorage = JSON.parse(localStorage.getItem('allMovies'));
+    const movieArrayAfterSearch = movieArrayFromLocalStorage.filter(film => film.nameRU.toLowerCase().includes(keyWord.toLowerCase()));
+    localStorage.setItem('movieArrayAfterSearch', JSON.stringify(movieArrayAfterSearch));
+    setMovieArrayAfterSearch(movieArrayAfterSearch);
+    const shortMovieArrayAfterSearch = movieArrayAfterSearch.filter(film => film.duration <= SHORT_FILM_DURATION);
+    localStorage.setItem('shortMovieArrayAfterSearch', JSON.stringify(shortMovieArrayAfterSearch));
+    setShortMovieArrayAfterSearch(shortMovieArrayAfterSearch);
+    // Сохранение чекбокса происходит сразу в handleChangeShortsCheckbox, эта строка не нужна localStorage.setItem('checkbox', shortsCheckbox);
+    if (location.pathname === '/movies' && movieArrayAfterSearch.length === 0) {
+      setErrorText('Ничего не найдено');
+    } else if (location.pathname === '/movies' && shortsCheckbox && shortMovieArrayAfterSearch.length === 0) {
+      setErrorText('Ничего не найдено');
+    };
+    if (movieArrayAfterSearch.length > displayMeMovies && location.pathname === '/movies') {
+      setIsMoreButtonVisible(true);
+    } else if (shortMovieArrayAfterSearch.length > displayMeMovies && location.pathname === '/saved-movies') {
+      setIsMoreButtonVisible(true);
+    };
+    
+  };
 
-  const handleSearchMovies = (name) => {
-    setIsModalWindowOpen(true);
+
+
+
+  const handleSearchMovies = (keyWord) => {
+    setPreloader(true);
     if (!JSON.parse(localStorage.getItem('allMovies'))) {
       getAllMovies()
         .then((movies) => {
           const filteredMovies = movies.filter(film => film.trailerLink.startsWith('http'));
-          localStorage.setItem('allMovies', JSON.stringify(filteredMovies)); // Нужно мне его приводить к JSON.stringify?
+          localStorage.setItem('allMovies', JSON.stringify(filteredMovies));
         })
         .then(() => {
-          const selectedMovies = searchMovie(JSON.parse(localStorage.getItem('allMovies')), name);
-          setMovies(selectedMovies);
-          setIsFound(!movies.length);
-          localStorage.setItem('selectedMovies', JSON.stringify(selectedMovies));
-          localStorage.setItem('searchKey', name);
-          localStorage.setItem('checkbox', shortsCheckbox);
-          console.log(selectedMovies);
+          searchMovie(keyWord);
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          setErrorText('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+          console.log(err);
+        })
         .finally(() => {
-          setIsModalWindowOpen(false);
-          setTimeout(() => setErrorText(''), 10000);
+          setPreloader(false);
+          clearErrorText();
         })
     } else if (JSON.parse(localStorage.getItem('allMovies'))) {
-      const selectedMovies = searchMovie(JSON.parse(localStorage.getItem('allMovies')), name);
-          setMovies(selectedMovies);
-          setIsFound(!selectedMovies.length);
-          localStorage.setItem('selectedMovies', JSON.stringify(selectedMovies));
-          localStorage.setItem('searchKey', name);
-          localStorage.setItem('checkbox', shortsCheckbox);
-          console.log(selectedMovies);
-          setIsModalWindowOpen(false);
+      searchMovie(keyWord);
+      setPreloader(false);
+      clearErrorText();
     };
   };
 
@@ -220,11 +308,17 @@ function App() {
           <Route path='/' element={<Main />} />
           <Route path="/" element={<ProtectedRoute loggedIn={currentUser.loggedIn} />}>
             <Route path='/movies' element={<Movies
-              movies={movies}
+              movies={movieArrayAfterSearch}
+              shortMovies={shortMovieArrayAfterSearch}
               onChangeShortsCheckbox={handleChangeShortsCheckbox}
               shortsCheckbox={shortsCheckbox}
               searchKey={localStorage.getItem('searchKey')}
               onSubmit={handleSearchMovies}
+              preloader={preloader}
+              errorText={errorText}
+              handleShowMoreMovies={handleShowMoreMovies}
+              displayMeMovies={displayMeMovies}
+              isMoreButtonVisible={isMoreButtonVisible}
             />} />
             <Route path='/saved-movies' element={<SavedMovies
               movies={savedMovies}
@@ -233,9 +327,13 @@ function App() {
               shortsCheckboxSaved={shortsCheckboxSaved}
               searchKey={localStorage.getItem('searchKey')}
               onSubmit={handleSearchMovies}
+              preloader={preloader}
+              errorText={errorText}
+              handleShowMoreMovies={handleShowMoreMovies}
+              displayMeMovies={displayMeMovies}
             />} />
             <Route path='/profile' element={<Profile
-              onUpdate={handleUpdate}
+              onUpdate={handleUpdateUserInfo}
               onSignOut={handleSignOut}
               errorText={errorText}
             />} />
