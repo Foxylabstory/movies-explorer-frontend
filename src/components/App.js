@@ -49,7 +49,12 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState({
+    loggedIn: false,
+    name: '',
+    email: '',
+    _id: '',
+  });
   const [isModalWindowOpen, setIsModalWindowOpen] = useState(false);
   const [errorText, setErrorText] = useState('');
   const [shortsCheckbox, setShortsCheckbox] = useState(false);
@@ -58,20 +63,6 @@ function App() {
   const [moviesToLoad, setMoviesToLoad] = useState(0);
   const [displayMeMovies, setDisplayMeMovies] = useState(0);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  /*   const [authorizationData, setAuthorizationData] = useState({
-      name: '',
-      email: '',
-      password: '',
-    }); */
-
-  /*   const handleChangeInput = (event) => {
-      const { name, value } = event.target;
-      setAuthorizationData((oldData) => ({
-        ...oldData,
-        [name]: value,
-      }));
-    }; */
 
   const [movieArrayAfterSearch, setMovieArrayAfterSearch] = useState([]);
   const [shortMovieArrayAfterSearch, setShortMovieArrayAfterSearch] = useState([]);
@@ -93,7 +84,6 @@ function App() {
     setMovieArrayAfterSearch(JSON.parse(localStorage.getItem('movieArrayAfterSearch')));
     setShortMovieArrayAfterSearch(JSON.parse(localStorage.getItem('shortMovieArrayAfterSearch')));
     getSavedMoviesFromMainApi();
-    console.log(localStorage);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -145,7 +135,23 @@ function App() {
       .then((response) => {
         if (response.token) {
           localStorage.setItem("jwt", response.token);
-          tokencheck();
+          checkToken(response.token)
+            .then((response) => {
+              if (response) {
+                getSavedMoviesFromMainApi();
+                setCurrentUser({
+                  loggedIn: true,
+                  name: response.name,
+                  email: response.email,
+                  _id: response._id,
+                });
+              }
+            })
+            .then(() => navigate('/movies'))
+            .catch((err) => {
+              console.error(err);
+              setErrorText(err.status === UNAUTHORIZED ? 'Вы ввели неправильный логин или пароль.' : 'При авторизации произошла ошибка.');
+            })
         }
       })
       .catch((err) => {
@@ -184,20 +190,24 @@ function App() {
   const handleSignOut = () => {
     localStorage.clear();
     navigate('/');
-    setCurrentUser({});
+    setCurrentUser({
+      loggedIn: false,
+      name: '',
+      email: '',
+      _id: '',
+    });
     setShortsCheckbox(false);
     setShortsCheckboxSaved(false);
     setMovieArrayAfterSearch([]);
     setShortMovieArrayAfterSearch([]);
     setSavedMovies([]);
     setShortSavedMovies([]);
-    console.log(localStorage);
   };
 
   const tokencheck = () => {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-      checkToken()
+      checkToken(jwt)
         .then((response) => {
           if (response) {
             getSavedMoviesFromMainApi();
@@ -207,8 +217,11 @@ function App() {
               email: response.email,
               _id: response._id,
             });
-            navigate('/movies');
+            // navigate('/movies'); // не знаю что делать с этой штукой, без нее авторизуется только со второго раза
           }
+        })
+        .then(() => {
+          navigate(location.pathname);
         })
         .catch((err) => {
           handleSignOut();
@@ -298,7 +311,8 @@ function App() {
     setIsModalWindowOpen(true);
     if (!isMovieAlreadySaved(movie)) {
       createMovie(movie)
-        .then(() => {
+        .then((movie) => {
+          /* setSavedMovies([movie, ...savedMovies]); */
           getSavedMoviesFromMainApi();
         })
         .catch((err) => {
@@ -360,54 +374,73 @@ function App() {
     <div className="App">
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
-          <Route path='/signup' element={<Signup
-            onSignUp={handleSignUp}
-            errorText={errorText}
-          />} />
-          <Route path='/signin' element={<Signin
-            onSignIn={handleSignIn}
-            errorText={errorText}
-          />} />
+          <Route path='/signup' element={
+            <Signup
+              onSignUp={handleSignUp}
+              errorText={errorText}
+            />}
+          />
+
+          <Route path='/signin' element={
+            <Signin
+              onSignIn={handleSignIn}
+              errorText={errorText}
+            />}
+          />
+
           <Route path='/' element={<Main />} />
-          <Route path="/" element={<ProtectedRoute loggedIn={currentUser.loggedIn} />}>
-            <Route path='/movies' element={<Movies
-              movies={movieArrayAfterSearch}
-              shortMovies={shortMovieArrayAfterSearch}
-              onChangeShortsCheckbox={handleChangeShortsCheckbox}
-              shortsCheckbox={shortsCheckbox}
-              searchKey={localStorage.getItem('searchKey')}
-              onSubmit={handleSearchMovies}
-              preloader={preloader}
-              errorText={errorText}
-              handleShowMoreMovies={handleShowMoreMovies}
-              displayMeMovies={displayMeMovies}
-              handlePutOrDeleteLike={handlePutOrDeleteLike}
-              isMovieAlreadySaved={isMovieAlreadySaved}
-            />} />
-            <Route path='/saved-movies' element={<SavedMovies
-              // searchKey={localStorage.getItem('searchKeySaved')} // обновил, но нужно ли? если при загрузке формы он не должен подставлять последнее слово поиска, потому что показывает сразу все фильмы
-              savedMovies={savedMovies} // обновил
-              shortSavedMovies={shortSavedMovies} // обновил
-              owner={1}
-              onChangeShortsCheckbox={handleChangeShortsCheckbox}
-              shortsCheckboxSaved={shortsCheckboxSaved}
-              onSubmit={handleSearchSavedMovies} // обновил
-              preloader={preloader}
-              errorText={errorText}
-              handleDeleteMovie={handleDeleteMovie}
-            />} />
-            <Route path='/profile' element={<Profile
-              onUpdate={handleUpdateUserInfo}
-              onSignOut={handleSignOut}
-              errorText={errorText}
-            />} />
-          </Route>
-          <Route path='/*' element={<PageNotFound />} />
+
+          <Route path="/movies" element={
+            <ProtectedRoute loggedIn={currentUser.loggedIn}>
+              <Movies
+                movies={movieArrayAfterSearch}
+                shortMovies={shortMovieArrayAfterSearch}
+                onChangeShortsCheckbox={handleChangeShortsCheckbox}
+                shortsCheckbox={shortsCheckbox}
+                searchKey={localStorage.getItem('searchKey')}
+                onSubmit={handleSearchMovies}
+                preloader={preloader}
+                errorText={errorText}
+                handleShowMoreMovies={handleShowMoreMovies}
+                displayMeMovies={displayMeMovies}
+                handlePutOrDeleteLike={handlePutOrDeleteLike}
+                isMovieAlreadySaved={isMovieAlreadySaved}
+              />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/saved-movies" element={
+            <ProtectedRoute loggedIn={currentUser.loggedIn}>
+              <SavedMovies
+                savedMovies={savedMovies}
+                shortSavedMovies={shortSavedMovies}
+                onChangeShortsCheckbox={handleChangeShortsCheckbox}
+                shortsCheckboxSaved={shortsCheckboxSaved}
+                onSubmit={handleSearchSavedMovies}
+                preloader={preloader}
+                errorText={errorText}
+                handleDeleteMovie={handleDeleteMovie}
+              />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/profile" element={
+            <ProtectedRoute loggedIn={currentUser.loggedIn}>
+              <Profile
+                onUpdate={handleUpdateUserInfo}
+                onSignOut={handleSignOut}
+                errorText={errorText}
+              />
+            </ProtectedRoute>
+          } />
+
+          <Route path='*' element={<PageNotFound />} />
+
         </Routes>
         <ModalWindow isOpen={isModalWindowOpen} />
       </CurrentUserContext.Provider>
 
-    </div>
+    </div >
   );
 }
 

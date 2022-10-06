@@ -28,12 +28,12 @@ export const signin = (email, password) => {
   }).then(isOk);
 };
 
-export const checkToken = (/* token */) => {
+export const checkToken = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${/* token */localStorage.getItem('jwt')}`,
+      "Authorization": `Bearer ${token/* localStorage.getItem('jwt') */}`,
     },
   }).then(isOk);
 };
