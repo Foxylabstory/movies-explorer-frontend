@@ -43,7 +43,7 @@
   color: #8b8b8b;
 }
 
-.search-form__input:active .search-form__input:focus {
+.search-form__input:focus {
   outline: 0;
 }
 

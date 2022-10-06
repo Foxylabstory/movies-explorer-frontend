@@ -50,7 +50,7 @@ function ProfileContent({ onUpdate, onSignOut, errorText }) {
                         className={`profile-content__input ${inputControl?.errors?.name && 'profile-content__input_error'}`}
                         name='name'
                         placeholder={currentUser.name}
-                        value={inputControl?.values?.name || ''}
+                        value={inputControl?.values?.name || currentUser.name}
                         disabled={!isUnlocked && 'disabled'}
                         minLength='2'
                         maxLength='30'
@@ -66,7 +66,7 @@ function ProfileContent({ onUpdate, onSignOut, errorText }) {
                         className={`profile-content__input profile-content__input_no-border-bottom ${inputControl?.errors?.email && 'profile-content__input_error'}`}
                         name='email'
                         placeholder={currentUser.email}
-                        value={inputControl?.values?.email || ''}
+                        value={inputControl?.values?.email || currentUser.email}
                         disabled={!isUnlocked && 'disabled'}
                         pattern='^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
                         onChange={inputControl.handleChange}
