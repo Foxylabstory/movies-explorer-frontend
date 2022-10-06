@@ -145,18 +145,7 @@ function App() {
       .then((response) => {
         if (response.token) {
           localStorage.setItem("jwt", response.token);
-          checkToken().then((response) => {
-            setCurrentUser({
-              loggedIn: true,
-              name: response.name,
-              email: response.email,
-              _id: response._id,
-            });
-            navigate("/movies");
-          })
-            .catch((err) => {
-              console.error(err);
-            })
+          tokencheck();
         }
       })
       .catch((err) => {
@@ -211,6 +200,7 @@ function App() {
       checkToken()
         .then((response) => {
           if (response) {
+            getSavedMoviesFromMainApi();
             setCurrentUser({
               loggedIn: true,
               name: response.name,
