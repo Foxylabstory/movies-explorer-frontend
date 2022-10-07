@@ -8,7 +8,7 @@ function PageNotFound(params) {
         <section className='page-not-found'>
             <h2 className='page-not-found__header'>404</h2>
             <p className='page-not-found__text'>Страница не найдена</p>
-            <Link className='page-not-found__link' onClick={() => navigate(-3)}>Назад</Link>
+            <Link className='page-not-found__link' onClick={() => navigate(-2)}>Назад</Link>
         </section>
     )
 }
