@@ -17,7 +17,8 @@
 
 ## Демо
 
-На GitHub Pages: []()
+[На выделенном сервере: ](https://foxylabstory.nomoredomains.sbs/)
+[На GitHub Pages: ](https://foxylabstory.github.io/movies-explorer-frontend/)
 
 ## Макет в Figma
 
@@ -26,7 +27,8 @@
 
 ## Пул-реквест для сдачи работы
 
-[github.com/Foxylabstory/movies-explorer-frontend/pull/1](https://github.com/Foxylabstory/movies-explorer-frontend/pull/2)
+[github.com/Foxylabstory/movies-explorer-frontend/pull/1](https://github.com/Foxylabstory/movies-explorer-frontend/pull/1) ⬅ _сдан_
+[github.com/Foxylabstory/movies-explorer-frontend/pull/2](https://github.com/Foxylabstory/movies-explorer-frontend/pull/2) ⬅ _на этапе сдачи_
 
 ## Используемые API
 - собственное API для регистрации/авторизации и хранения сохраненных фильмов: `https://api.foxylabstory.nomoredomains.sbs`
