@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
 import './ProfileContent.css';
 import { CurrentUserContext } from '../../../contexts/CurrentUserContext';
 import useFormWithValidation from '../../../utils/Hooks/UseFormWithValidation';
 
 function ProfileContent({ onUpdate, onSignOut, errorText }) {
-    const currentUser = React.useContext(CurrentUserContext);
-    const [isUnlocked, setIsUnlocked] = React.useState(false);
+    const currentUser = useContext(CurrentUserContext);
+    const [isUnlocked, setIsUnlocked] = useState(false);
+    const [areNotEqualValues, setAreNotEqualValues] = useState(true);
+    const [isValid, setIsValid] = useState(false);
 
-    React.useEffect(() => {
+    useEffect(() => {
         function closeByEscape(evt) {
             if (evt.key === 'Escape') {
                 setIsUnlocked(false);
@@ -20,7 +22,7 @@ function ProfileContent({ onUpdate, onSignOut, errorText }) {
                 inputControl.resetForm();
             }
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isUnlocked])
 
     const handleUnlock = () => {
@@ -30,6 +32,20 @@ function ProfileContent({ onUpdate, onSignOut, errorText }) {
     const inputControl = useFormWithValidation();
     const { name, email } = inputControl.errors;
 
+    useEffect(() => {
+        if (inputControl.values.name === currentUser.name &&
+            inputControl.values.email === currentUser.email) {
+            setAreNotEqualValues(false);
+        } else {
+            setAreNotEqualValues(true);
+        }
+        
+    }, [currentUser, inputControl.values.name, inputControl.values.email]);
+
+    useEffect(() => {
+        setIsValid(inputControl.isValid && areNotEqualValues)
+    }, [areNotEqualValues, inputControl.isValid]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const { name, email } = inputControl.values;
@@ -37,8 +53,6 @@ function ProfileContent({ onUpdate, onSignOut, errorText }) {
         inputControl.resetForm();
         setIsUnlocked(false);
     };
-
-    let isCurrentUserEqualInputControl = (inputControl?.values?.name === currentUser.name)  && (inputControl?.values?.email === currentUser.email );
 
     return (
         <section className='profile-content'>
@@ -50,7 +64,7 @@ function ProfileContent({ onUpdate, onSignOut, errorText }) {
                         className={`profile-content__input ${inputControl?.errors?.name && 'profile-content__input_error'}`}
                         name='name'
                         placeholder={currentUser.name}
-                        value={inputControl?.values?.name || currentUser.name}
+                        value={inputControl?.values?.name ?? ''}
                         disabled={!isUnlocked && 'disabled'}
                         minLength='2'
                         maxLength='30'
@@ -66,7 +80,7 @@ function ProfileContent({ onUpdate, onSignOut, errorText }) {
                         className={`profile-content__input profile-content__input_no-border-bottom ${inputControl?.errors?.email && 'profile-content__input_error'}`}
                         name='email'
                         placeholder={currentUser.email}
-                        value={inputControl?.values?.email || currentUser.email}
+                        value={inputControl?.values?.email ?? ''}
                         disabled={!isUnlocked && 'disabled'}
                         pattern='^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
                         onChange={inputControl.handleChange}
@@ -78,9 +92,8 @@ function ProfileContent({ onUpdate, onSignOut, errorText }) {
                 <button
                     className={`profile-content__button profile-content__button_submit
                     ${!isUnlocked && 'profile-content__invisible'}
-                    ${(isCurrentUserEqualInputControl && 'profile-content__button_disable') || (!inputControl.isValid && 'profile-content__button_disable')}`}
-
-                    disabled={(isCurrentUserEqualInputControl && 'disabled') || (!inputControl.isValid && 'disabled')}
+                    ${(!isValid && 'profile-content__button_disable')}`}
+                    disabled={(!isValid && 'disabled')}
                     onClick={handleSubmit}
                 >Сохранить</button>
             </form>
@@ -93,7 +106,7 @@ function ProfileContent({ onUpdate, onSignOut, errorText }) {
                 </li>
                 <li className="profile-content__list-item">
                     <button className="profile-content__button profile-content__button_logout"
-                    onClick={onSignOut}>Выйти из аккаунта</button>
+                        onClick={onSignOut}>Выйти из аккаунта</button>
                 </li>
             </ul>
         </section>

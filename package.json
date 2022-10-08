@@ -1,7 +1,7 @@
 {
   "name": "movies-explorer",
   "version": "0.1.0",
-  "homepage": "https://foxylabstory.github.io/movies-explorer-frontend",
+  
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -19,7 +19,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "prod-deploy": "npm run build&&scp -r ./build/* foxylab@178.154.202.93:/home/foxylab/movies-explorer-frontend"
   },
   "eslintConfig": {
     "extends": [
