@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './SavedMovies.css';
 /* import { Link } from 'react-router-dom'; */
 import Header from "../BaseComponents/Header/Header";
@@ -18,6 +18,11 @@ function SavedMovies({
   errorText,
   handleDeleteMovie,
 }) {
+  /* const [movies, setMovies] = useState(savedMovies);
+
+  useEffect(() => {
+    setMovies(JSON.parse(localStorage.getItem('savedMovies')));
+  }, []); */
   return (
     <div className="saved-movies">
       <Header />
@@ -25,11 +30,13 @@ function SavedMovies({
         onChangeShortsCheckbox={onChangeShortsCheckbox}
         shortsCheckboxSaved={shortsCheckboxSaved}
         searchKey={searchKey}
-        onSubmit={onSubmit} />
+        onSubmit={onSubmit}
+        errorText={errorText}
+         />
       <MoviesCardList
         savedMovies={!shortsCheckboxSaved ? savedMovies : shortSavedMovies}
         preloader={preloader}
-        errorText={errorText}
+        /* errorText={errorText} */
         handleDeleteMovie={handleDeleteMovie}
       />
       <Devider />

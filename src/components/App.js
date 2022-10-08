@@ -230,13 +230,18 @@ function App() {
     }
   }
 
-  const handleChangeShortsCheckbox = (evt) => {
-    if (location.pathname === '/movies') {
+  const handleChangeShortsCheckbox = (/* evt */ keyWord) => {
+    if (keyWord && location.pathname === '/movies') {
       setShortsCheckbox(!shortsCheckbox);
       localStorage.setItem('shortsCheckbox', !shortsCheckbox);
-    } else if (location.pathname === '/saved-movies') {
+      handleSearchMovies(keyWord);
+    } else if (keyWord && location.pathname === '/saved-movies') {
       setShortsCheckboxSaved(!shortsCheckboxSaved);
       localStorage.setItem('shortsCheckboxSaved', !shortsCheckboxSaved);
+      handleSearchSavedMovies(keyWord);
+    } else {
+      setErrorText('Нужно ввести ключевое слово');
+      clearErrorText();
     }
   };
 
@@ -293,10 +298,10 @@ function App() {
     localStorage.setItem('searchKeySaved', keyWord);
     const savedMovieArrayFromLocalStorage = JSON.parse(localStorage.getItem('savedMovies'));
     const savedMovieArrayAfterSearch = savedMovieArrayFromLocalStorage.filter(film => film.nameRU.toLowerCase().includes(keyWord.toLowerCase()));
-    localStorage.setItem('savedMovieArrayAfterSearch', JSON.stringify(savedMovieArrayAfterSearch));
+    /* localStorage.setItem('savedMovieArrayAfterSearch', JSON.stringify(savedMovieArrayAfterSearch)); */
     setSavedMovies(savedMovieArrayAfterSearch);
     const shortSavedMovieArrayAfterSearch = savedMovieArrayAfterSearch.filter(film => film.duration <= SHORT_FILM_DURATION);
-    localStorage.setItem('shortSavedMovieArrayAfterSearch', JSON.stringify(shortSavedMovieArrayAfterSearch));
+    /* localStorage.setItem('shortSavedMovieArrayAfterSearch', JSON.stringify(shortSavedMovieArrayAfterSearch)); */
     setShortSavedMovies(shortSavedMovieArrayAfterSearch);
     if (location.pathname === '/saved-movies' && savedMovieArrayAfterSearch.length === 0) {
       setErrorText('Ничего не найдено');
@@ -375,18 +380,22 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
           <Route path='/signup' element={
-            <Signup
-              onSignUp={handleSignUp}
-              errorText={errorText}
-            />}
-          />
+            <ProtectedRoute loggedIn={!currentUser.loggedIn}>
+              <Signup
+                onSignUp={handleSignUp}
+                errorText={errorText}
+              />
+            </ProtectedRoute>
+          } />
 
           <Route path='/signin' element={
-            <Signin
-              onSignIn={handleSignIn}
-              errorText={errorText}
-            />}
-          />
+            <ProtectedRoute loggedIn={!currentUser.loggedIn}>
+              <Signin
+                onSignIn={handleSignIn}
+                errorText={errorText}
+              />
+            </ProtectedRoute>
+          } />
 
           <Route path='/' element={<Main />} />
 

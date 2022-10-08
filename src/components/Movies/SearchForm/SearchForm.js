@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import FilterCheckbox from './FilterCheckbox/FilterCheckbox';
 import './SearchForm.css';
 
-function SearchForm({ searchKey, onChangeShortsCheckbox, shortsCheckbox, shortsCheckboxSaved, onSubmit }) {
+function SearchForm({ searchKey, onChangeShortsCheckbox, shortsCheckbox, shortsCheckboxSaved, onSubmit, errorText }) {
     const location = useLocation();
 
     const [searchFormState, setSearchFormState] = useState({
@@ -63,18 +63,20 @@ function SearchForm({ searchKey, onChangeShortsCheckbox, shortsCheckbox, shortsC
                     <div className='search-form__shorts'>
                         <FilterCheckbox
                             value={localStorage.getItem('shortsCheckbox')}
-                            onChange={onChangeShortsCheckbox}
+                            onChangeShortsCheckbox={onChangeShortsCheckbox}
                             shortsCheckbox={shortsCheckbox}
-                            shortsCheckboxSaved={shortsCheckboxSaved} />
+                            shortsCheckboxSaved={shortsCheckboxSaved}
+                            keyWord={searchFormState.keyWord} />
                     </div>
                 </form>
-                <span className='search-form__error'>{searchFormState.errorText}</span>
+                <span className='search-form__error'>{errorText || searchFormState.errorText}</span>
                 <div className='search-form__shorts search-form__shorts_outside'>
                     <FilterCheckbox
                         value={localStorage.getItem('shortsCheckbox')}
-                        onChange={onChangeShortsCheckbox}
+                        onChangeShortsCheckbox={onChangeShortsCheckbox}
                         shortsCheckbox={shortsCheckbox}
-                        shortsCheckboxSaved={shortsCheckboxSaved} />
+                        shortsCheckboxSaved={shortsCheckboxSaved}
+                        keyWord={searchFormState.keyWord} />
                 </div>
             </div>
         </section>

@@ -29,12 +29,13 @@ function Movies({
         shortsCheckbox={shortsCheckbox}
         searchKey={searchKey}
         onSubmit={onSubmit}
+        errorText={errorText}
       />
       <MoviesCardList
         displayMeMovies={displayMeMovies}
         movies={!shortsCheckbox ? movies : shortMovies}
         preloader={preloader}
-        errorText={errorText}
+        /* errorText={errorText} */
         handlePutOrDeleteLike={handlePutOrDeleteLike}
         isMovieAlreadySaved={isMovieAlreadySaved}
       />

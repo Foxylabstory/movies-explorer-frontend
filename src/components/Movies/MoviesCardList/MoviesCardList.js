@@ -9,7 +9,7 @@ function MoviesCardList({ movies, preloader, errorText, displayMeMovies, handleP
 
     return (
         <section className='movies-card-list'>
-            {errorText.length >= 0 && <p className='movies-card-list__message'>{errorText}</p>}
+            {/* {errorText.length >= 0 && <p className='movies-card-list__message'>{errorText}</p>} */}
             <div className='movies-card-list__container'>
                 {preloader && <Preloader />}
                 {location.pathname === '/movies' && movies && movies.slice(0, displayMeMovies).map((movie) => {
