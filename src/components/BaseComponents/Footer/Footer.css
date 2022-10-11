@@ -1,6 +1,11 @@
 .footer {
   background-color: #202020;
   margin: 0;
+  
+}
+
+.footer_empty {
+  margin-top: 250px;
 }
 
 .footer__container {

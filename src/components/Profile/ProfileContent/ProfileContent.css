@@ -84,14 +84,13 @@
   border-bottom: 1px solid #ff004c;
 }
 
-.profile-content__input::placeholder {
+/* .profile-content__input::placeholder {
   font-style: normal;
   font-weight: 400;
   font-size: 11px;
   line-height: 13px;
-  /* identical to box height */
   color: #ffffff;
-}
+} */
 
 .profile-content__input:disabled {
   opacity: 0.7;
@@ -151,6 +150,11 @@
   margin: 0;
   font-size: 14px;
   line-height: 17px;
+}
+
+.profile-content__button_disable {
+  background: #2f2f2f;
+  cursor: not-allowed;
 }
 
 .profile-content__button_change {

@@ -1,10 +1,10 @@
 import './More.css';
 
-function More(params) {
+function More({ handleShowMoreMovies }) {
     return (
         <section className='more'>
             <div className='more__container'>
-                <button className='more__button'>Ещё</button>
+                <button className='more__button' onClick={handleShowMoreMovies}>Ещё</button>
             </div>
         </section>
     )

@@ -3,7 +3,7 @@
   background: #3ddc84;
   border-radius: 3px;
   border: none;
-  margin: auto 0 16px 0;
+  margin: 16px 0 16px 0;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -12,6 +12,12 @@
   text-align: center;
   color: #ffffff;
   transition: opacity 0.4s ease;
+  cursor: pointer;
+}
+
+.sign-button_disable {
+  background: #2f2f2f;
+  cursor:not-allowed;
 }
 
 .sign-button:hover {
@@ -47,6 +53,7 @@
   text-decoration: none;
   margin: 0 0 0 6px;
   transition: opacity 0.4s ease;
+  cursor: pointer;
 }
 
 .sign-button__link:hover {

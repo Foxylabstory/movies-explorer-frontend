@@ -1,26 +1,46 @@
 import React from "react";
 import './SavedMovies.css';
-import { Link } from 'react-router-dom';
+/* import { Link } from 'react-router-dom'; */
 import Header from "../BaseComponents/Header/Header";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
-import Preloader from "../Movies/Preloader/Preloader";
 import SearchForm from "../Movies/SearchForm/SearchForm";
 import Devider from "./Devider/Devider";
 import Footer from "../BaseComponents/Footer/Footer";
 
-function SavedMovies({ movies, owner }) {
+function SavedMovies({
+  searchKey,
+  savedMovies,
+  shortSavedMovies,
+  onChangeShortsCheckbox,
+  shortsCheckboxSaved,
+  onSubmit,
+  preloader,
+  errorText,
+  handleDeleteMovie,
+}) {
+  /* const [movies, setMovies] = useState(savedMovies);
+
+  useEffect(() => {
+    setMovies(JSON.parse(localStorage.getItem('savedMovies')));
+  }, []); */
   return (
     <div className="saved-movies">
-      <Header>
-        <Link className="header__link header__link_films" to={"/movies"}>Фильмы</Link>
-        <Link className="header__link header__link_saved-films" to={"/saved-movies"}>Сохранённые фильмы</Link>
-        <Link className="header__button header__button_logged" to={"/profile"}>Аккаунт</Link>
-      </Header>
-      <SearchForm />
-      <Preloader />
-      <MoviesCardList movies={movies} owner={owner} />
+      <Header />
+      <SearchForm
+        onChangeShortsCheckbox={onChangeShortsCheckbox}
+        shortsCheckboxSaved={shortsCheckboxSaved}
+        searchKey={searchKey}
+        onSubmit={onSubmit}
+        errorText={errorText}
+         />
+      <MoviesCardList
+        savedMovies={!shortsCheckboxSaved ? savedMovies : shortSavedMovies}
+        preloader={preloader}
+        /* errorText={errorText} */
+        handleDeleteMovie={handleDeleteMovie}
+      />
       <Devider />
-      <Footer />
+      <Footer margin={savedMovies.length} />
     </div>
   )
 }
